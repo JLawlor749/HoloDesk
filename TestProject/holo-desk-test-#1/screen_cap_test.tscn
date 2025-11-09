@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://8asqn1wnlkru"]
+
+[ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://screen_capture.gd" id="1_xh5l6"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_evh5b"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.085003, 0)
+projection = 1
+size = 1.7534918
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_evh5b")
+script = ExtResource("1_xh5l6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22886556, 0.8931761, -0.64221615)
