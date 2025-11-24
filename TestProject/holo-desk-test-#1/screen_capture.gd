@@ -4,9 +4,12 @@ var screenSize
 var screenCap
 var texture
 var material
+var screenIndex
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	self.position = Vector3(0, 1, -1.25)
 	
 	# Create a new material.
 	material = StandardMaterial3D.new()

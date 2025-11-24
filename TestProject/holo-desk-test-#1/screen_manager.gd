@@ -4,6 +4,7 @@ var driverHelper
 var screenList
 var screenScene = preload("res://Items/screen.tscn")
 var screenPrimary
+var sceneRoot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,11 +15,12 @@ func _ready() -> void:
 	# Instantiate a new screen instance to display the user's real screen.
 	# Assign it an index number of 0, as the first screen.
 	screenPrimary = screenScene.instantiate()
+	add_child(screenPrimary)
 	screenPrimary.screenIndex = 0
 	
 	# Start the list of screens with the primary screen.
 	# The list item is the reference to the screen, and an index number.
-	screenList = [Vector2(screenPrimary, 0)]
+	screenList = [[screenPrimary, 0]]
 	
 
 

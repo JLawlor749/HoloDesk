@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://dqg4csxtvxqr"]
+[gd_scene load_steps=3 format=3 uid="uid://dqg4csxtvxqr"]
 
-[node name="Screen" type="Node3D"]
+[ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://screen_capture.gd" id="1_68wpl"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_evh5b"]
+
+[node name="VirtualScreen" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_evh5b")
+script = ExtResource("1_68wpl")
