@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqg4csxtvxqr"]
 
-[ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://screen_capture.gd" id="1_68wpl"]
+[ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://Assets/Scripts/Screens/screen_capture.gd" id="1_68wpl"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_evh5b"]
 
