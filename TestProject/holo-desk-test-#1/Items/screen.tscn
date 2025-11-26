@@ -1,9 +1,88 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqg4csxtvxqr"]
+[gd_scene load_steps=17 format=3 uid="uid://ux6sohjmto0a"]
 
 [ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://Assets/Scripts/Screens/screen_capture.gd" id="1_68wpl"]
+[ext_resource type="Script" uid="uid://bp7hgsgy7bx2m" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_m6qmk"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="2_pndy7"]
+[ext_resource type="Animation" uid="uid://plad1r85f7ws" path="res://addons/godot-xr-tools/hands/animations/left/Grip.res" id="3_5oh7s"]
+[ext_resource type="Script" uid="uid://28ri2nl8ykco" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_nugu2"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_r4knw"]
+[ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="6_3k7s2"]
+
+[sub_resource type="Resource" id="Resource_sjou1"]
+script = ExtResource("4_nugu2")
+open_pose = ExtResource("3_5oh7s")
+closed_pose = ExtResource("3_5oh7s")
+
+[sub_resource type="Resource" id="Resource_07j5o"]
+script = ExtResource("4_nugu2")
+open_pose = ExtResource("6_3k7s2")
+closed_pose = ExtResource("6_3k7s2")
+
+[sub_resource type="TextMesh" id="TextMesh_b2y48"]
+text = "GRAB"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5jfp"]
+albedo_color = Color(0.08646686, 1.353256, 1.3480214, 1)
+emission_enabled = true
+emission = Color(0, 0.7631745, 0.7907558, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_evh5b"]
 
-[node name="VirtualScreen" type="MeshInstance3D"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_pndy7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oh7s"]
+albedo_color = Color(0.66245234, 0.66245234, 0.6624523, 1)
+metallic = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nugu2"]
+albedo_color = Color(9.818673e-06, 0.77309567, 0.71930796, 1)
+emission_enabled = true
+emission = Color(0, 0.655007, 0.626122, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pndy7"]
+
+[node name="VirtualScreen" type="RigidBody3D"]
+collision_layer = 8196
+collision_mask = 7
+gravity_scale = 0.0
+freeze = true
+script = ExtResource("2_m6qmk")
+picked_up_layer = 0
+release_mode = 1
+second_hand_grab = 1
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("2_pndy7")]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, -0.26870418, -0.035334315)
+visible = true
+hand_pose = SubResource("Resource_sjou1")
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("5_r4knw")]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, -0.26870418, -0.035334315)
+visible = true
+hand_pose = SubResource("Resource_07j5o")
+
+[node name="GrabIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.3063835, 0.07033193)
+mesh = SubResource("TextMesh_b2y48")
+skeleton = NodePath("../Screen")
+surface_material_override/0 = SubResource("StandardMaterial3D_g5jfp")
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("QuadMesh_evh5b")
 script = ExtResource("1_68wpl")
+
+[node name="Back" type="MeshInstance3D" parent="Screen"]
+transform = Transform3D(-0.5, -7.54979e-08, 3.300118e-15, 0, -2.1855694e-08, -0.5, 7.54979e-08, -0.5, 2.1855694e-08, 0, 0, -0.0043435395)
+mesh = SubResource("PlaneMesh_pndy7")
+surface_material_override/0 = SubResource("StandardMaterial3D_5oh7s")
+
+[node name="Frame" type="MeshInstance3D" parent="Screen"]
+transform = Transform3D(0.51, 0, 0, 0, -2.2292808e-08, -0.51, 0, 0.51, -2.2292808e-08, 0, 0, -0.0043435395)
+mesh = SubResource("PlaneMesh_pndy7")
+surface_material_override/0 = SubResource("StandardMaterial3D_nugu2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.28523058, 0)
+shape = SubResource("BoxShape3D_pndy7")

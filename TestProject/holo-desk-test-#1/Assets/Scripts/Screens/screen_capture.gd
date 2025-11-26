@@ -2,14 +2,17 @@ extends MeshInstance3D
 
 var screenSize
 var screenCap
+
 var texture
 var material
+
 var screenIndex
+
+var grabPoint
+var grabIndicator
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	self.position = Vector3(0, 1, -1.25)
 	
 	# Create a new material.
 	material = StandardMaterial3D.new()
@@ -18,7 +21,11 @@ func _ready() -> void:
 	screenSize = DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
 	
 	# Set the scale of the 3D mesh plane to the size of the screen, scaled down.
-	self.scale = Vector3(float(screenSize[0])/1000, float(screenSize[1])/1000, 1)
+	self.scale = Vector3(float(screenSize[0])/2000, float(screenSize[1])/2000, 1)
+	
+	# Assign pickable component.
+	grabPoint = self.get_parent()
+	grabIndicator = grabPoint.get_node("GrabIndicator")
 	
 	# Capture the content on the screen, convert it to an image texture,
 	# and set as the colour of the material.

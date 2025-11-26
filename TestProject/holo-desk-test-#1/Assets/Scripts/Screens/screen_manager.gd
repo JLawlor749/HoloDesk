@@ -16,7 +16,9 @@ func _ready() -> void:
 	# Assign it an index number of 0, as the first screen.
 	screenPrimary = screenScene.instantiate()
 	add_child(screenPrimary)
-	screenPrimary.screenIndex = 0
+	
+	var screenMesh = screenPrimary.get_node("Screen")
+	screenMesh.screenIndex = 0
 	
 	# Start the list of screens with the primary screen.
 	# The list item is the reference to the screen, and an index number.
