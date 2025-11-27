@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://rpwnu35wl7y0"]
+
+[ext_resource type="Texture2D" uid="uid://wh06x108clc2" path="res://Assets/Models/Shortcut Elements/switch_basic/Switch_Base_Albedo.png" id="1_lfhum"]
+[ext_resource type="Texture2D" uid="uid://def4bgc18524n" path="res://Assets/Models/Shortcut Elements/switch_basic/Switch_Base_Metallic.png" id="2_1bcom"]
+[ext_resource type="Texture2D" uid="uid://5jd8ge5f27f5" path="res://Assets/Models/Shortcut Elements/switch_basic/Switch_Base_Normal.png" id="3_6avnr"]
+[ext_resource type="Texture2D" uid="uid://bjwpqwlejcmwa" path="res://Assets/Models/Shortcut Elements/switch_basic/Switch_Base_Roughness.png" id="4_5q7xh"]
+
+[resource]
+albedo_texture = ExtResource("1_lfhum")
+metallic = 1.0
+metallic_texture = ExtResource("2_1bcom")
+metallic_texture_channel = 4
+roughness = 0.55
+roughness_texture = ExtResource("4_5q7xh")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("3_6avnr")
