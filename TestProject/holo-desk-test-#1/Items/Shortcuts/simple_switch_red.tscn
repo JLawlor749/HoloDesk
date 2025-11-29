@@ -1,14 +1,15 @@
-[gd_scene load_steps=20 format=4 uid="uid://bfcs6v4xugkvs"]
+[gd_scene load_steps=21 format=4 uid="uid://bfcs6v4xugkvs"]
 
-[ext_resource type="Material" uid="uid://rpwnu35wl7y0" path="res://Assets/Models/Shortcut Elements/switch_basic/switch_basic.tres" id="1_p2cff"]
-[ext_resource type="Script" uid="uid://myu30tdtbujd" path="res://addons/godot-xr-tools/interactables/interactable_hinge.gd" id="2"]
-[ext_resource type="Script" uid="uid://j73fp0h1uvgp" path="res://addons/godot-xr-tools/interactables/interactable_handle.gd" id="4"]
-[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_lu2nr"]
-[ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="5_qs41c"]
-[ext_resource type="Script" uid="uid://28ri2nl8ykco" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_nyol8"]
-[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_xbqs6"]
-[ext_resource type="Animation" uid="uid://d1xnpyc08njjx" path="res://addons/godot-xr-tools/hands/animations/right/Grip 4.res" id="8_otwuk"]
-[ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="10_23ntw"]
+[ext_resource type="Script" uid="uid://d1bikhkktgo60" path="res://Items/Shortcuts/switch_basic.gd" id="1_fs8v3"]
+[ext_resource type="Material" uid="uid://rpwnu35wl7y0" path="res://Assets/Models/Shortcut Elements/switch_basic/switch_basic.tres" id="2_kfn3p"]
+[ext_resource type="Script" uid="uid://myu30tdtbujd" path="res://addons/godot-xr-tools/interactables/interactable_hinge.gd" id="3_xc8g2"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_m4ilk"]
+[ext_resource type="Animation" uid="uid://db62hs5s4n2b3" path="res://addons/godot-xr-tools/hands/animations/left/Grip 4.res" id="5_8uw02"]
+[ext_resource type="Script" uid="uid://28ri2nl8ykco" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="6_2nr0s"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="7_h3dir"]
+[ext_resource type="Animation" uid="uid://d1xnpyc08njjx" path="res://addons/godot-xr-tools/hands/animations/right/Grip 4.res" id="8_audcv"]
+[ext_resource type="Script" uid="uid://j73fp0h1uvgp" path="res://addons/godot-xr-tools/interactables/interactable_handle.gd" id="9_gh1xt"]
+[ext_resource type="PackedScene" uid="uid://ca3daqmpo0tua" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_redirect.tscn" id="10_7a0xp"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.15327148, 0.24655762, 0.0680664)
@@ -92,16 +93,18 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_otkg2")
 
 [sub_resource type="Resource" id="Resource_87asn"]
-script = ExtResource("6_nyol8")
-open_pose = ExtResource("5_qs41c")
-closed_pose = ExtResource("5_qs41c")
+script = ExtResource("6_2nr0s")
+open_pose = ExtResource("5_8uw02")
+closed_pose = ExtResource("5_8uw02")
 
 [sub_resource type="Resource" id="Resource_7yemt"]
-script = ExtResource("6_nyol8")
-open_pose = ExtResource("8_otwuk")
-closed_pose = ExtResource("8_otwuk")
+script = ExtResource("6_2nr0s")
+open_pose = ExtResource("8_audcv")
+closed_pose = ExtResource("8_audcv")
 
-[node name="LeverZero" type="Node3D"]
+[node name="SimpleSwitchRed" type="Node3D" node_paths=PackedStringArray("hingeComponent")]
+script = ExtResource("1_fs8v3")
+hingeComponent = NodePath("LeverOrigin/InteractableLever")
 
 [node name="Frame" type="StaticBody3D" parent="."]
 
@@ -111,16 +114,16 @@ shape = SubResource("1")
 
 [node name="FrameMesh" type="MeshInstance3D" parent="Frame"]
 transform = Transform3D(0.074999996, 0, 0, 0, -3.278354e-09, -0.074999996, 0, 0.074999996, -3.278354e-09, 0, 0, -0.050155632)
-material_override = ExtResource("1_p2cff")
+material_override = ExtResource("2_kfn3p")
 mesh = SubResource("ArrayMesh_uurhf")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("1_p2cff")
+surface_material_override/0 = ExtResource("2_kfn3p")
 
 [node name="LeverOrigin" type="Node3D" parent="."]
 transform = Transform3D(1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0, 1, 0, 0, 0.027771082)
 
 [node name="InteractableLever" type="Node3D" parent="LeverOrigin"]
-script = ExtResource("2")
+script = ExtResource("3_xc8g2")
 default_on_release = true
 
 [node name="HingeBody" type="StaticBody3D" parent="LeverOrigin/InteractableLever"]
@@ -136,16 +139,16 @@ shape = SubResource("BoxShape3D_um4uh")
 
 [node name="HandleMesh2" type="MeshInstance3D" parent="LeverOrigin/InteractableLever/HingeBody"]
 transform = Transform3D(0.074999996, -3.4941026e-23, -7.993575e-16, -7.9935743e-16, -3.278354e-09, -0.074999996, 5.293956e-23, 0.074999996, -3.278354e-09, 0, 0, -0.100006446)
-material_override = ExtResource("1_p2cff")
+material_override = ExtResource("2_kfn3p")
 mesh = SubResource("ArrayMesh_hs22o")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("1_p2cff")
+surface_material_override/0 = ExtResource("2_kfn3p")
 
-[node name="GrabPointHandLeft" parent="LeverOrigin/InteractableLever/HingeBody/HandleMesh2" instance=ExtResource("4_lu2nr")]
+[node name="GrabPointHandLeft" parent="LeverOrigin/InteractableLever/HingeBody/HandleMesh2" instance=ExtResource("4_m4ilk")]
 transform = Transform3D(-5.8281853e-07, 13.333331, 2.0328787e-19, -12.601682, -5.508363e-07, 4.3560853, 4.3560853, 1.904105e-07, 12.601682, 0.6666666, 1.3045377, -0.9668961)
 hand_pose = SubResource("Resource_87asn")
 
-[node name="GrabPointHandRight" parent="LeverOrigin/InteractableLever/HingeBody/HandleMesh2" instance=ExtResource("7_xbqs6")]
+[node name="GrabPointHandRight" parent="LeverOrigin/InteractableLever/HingeBody/HandleMesh2" instance=ExtResource("7_h3dir")]
 transform = Transform3D(-5.828187e-07, -13.333331, -2.98509e-14, 12.933374, -5.6533617e-07, 3.2412071, -3.2412071, 1.4167685e-07, 12.933374, -0.6666666, 1.3045377, -0.9668961)
 hand_pose = SubResource("Resource_7yemt")
 
@@ -156,14 +159,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11463927)
 collision_layer = 262144
 collision_mask = 0
 freeze = true
-script = ExtResource("4")
+script = ExtResource("9_gh1xt")
 picked_up_layer = 0
 
 [node name="HandleCollision" type="CollisionShape3D" parent="LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle"]
 shape = SubResource("BoxShape3D_um4uh")
 
-[node name="GrabPointRedirectLeft" parent="LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle/HandleCollision" node_paths=PackedStringArray("target") instance=ExtResource("10_23ntw")]
+[node name="GrabPointRedirectLeft" parent="LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle/HandleCollision" node_paths=PackedStringArray("target") instance=ExtResource("10_7a0xp")]
 target = NodePath("../../../../HingeBody/HandleMesh2/GrabPointHandLeft")
 
-[node name="GrabPointRedirectRight" parent="LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle/HandleCollision" node_paths=PackedStringArray("target") instance=ExtResource("10_23ntw")]
+[node name="GrabPointRedirectRight" parent="LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle/HandleCollision" node_paths=PackedStringArray("target") instance=ExtResource("10_7a0xp")]
 target = NodePath("../../../../HingeBody/HandleMesh2/GrabPointHandRight")

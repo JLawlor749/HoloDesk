@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ux6sohjmto0a"]
+[gd_scene load_steps=19 format=3 uid="uid://ux6sohjmto0a"]
 
 [ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://Assets/Scripts/Screens/screen_capture.gd" id="1_68wpl"]
 [ext_resource type="Script" uid="uid://bp7hgsgy7bx2m" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_m6qmk"]
@@ -40,6 +40,14 @@ emission_enabled = true
 emission = Color(0, 0.655007, 0.626122, 1)
 emission_energy_multiplier = 1.5
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_5oh7s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4knw"]
+albedo_color = Color(0, 0.6838327, 0.7166143, 1)
+emission_enabled = true
+emission = Color(0, 0.7861442, 0.7408774, 1)
+emission_energy_multiplier = 2.0
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_pndy7"]
 
 [node name="VirtualScreen" type="RigidBody3D"]
@@ -53,12 +61,12 @@ release_mode = 1
 second_hand_grab = 1
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("2_pndy7")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, -0.26870418, -0.035334315)
+transform = Transform3D(1, 0, 0, 0, 0.8947397, -0.44658834, 0, 0.44658834, 0.8947397, 0, -0.26870418, 0.04300623)
 visible = true
 hand_pose = SubResource("Resource_sjou1")
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("5_r4knw")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, -0.26870418, -0.035334315)
+transform = Transform3D(1, 0, 0, 0, 0.8947397, -0.44658834, 0, 0.44658834, 0.8947397, 0, -0.26870418, 0.04300623)
 visible = true
 hand_pose = SubResource("Resource_07j5o")
 
@@ -82,6 +90,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5oh7s")
 transform = Transform3D(0.51, 0, 0, 0, -2.2292808e-08, -0.51, 0, 0.51, -2.2292808e-08, 0, 0, -0.0043435395)
 mesh = SubResource("PlaneMesh_pndy7")
 surface_material_override/0 = SubResource("StandardMaterial3D_nugu2")
+
+[node name="MouseCursor" type="Node3D" parent="Screen"]
+
+[node name="CursorMesh" type="MeshInstance3D" parent="Screen/MouseCursor"]
+transform = Transform3D(0.0070710676, -3.090862e-10, -0.0070710676, -0.0070710676, -3.090862e-10, -0.0070710676, 0, 0.01, -4.371139e-10, 0, 0, 0.0030382574)
+mesh = SubResource("PlaneMesh_5oh7s")
+surface_material_override/0 = SubResource("StandardMaterial3D_r4knw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.28523058, 0)

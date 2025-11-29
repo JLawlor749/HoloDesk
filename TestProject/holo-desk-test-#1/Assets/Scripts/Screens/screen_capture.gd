@@ -16,6 +16,7 @@ func _ready() -> void:
 	
 	# Create a new material.
 	material = StandardMaterial3D.new()
+	material.shading_mode = 0
 	
 	# Access the DisplayServer class and get the size of the primary screen.
 	screenSize = DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
