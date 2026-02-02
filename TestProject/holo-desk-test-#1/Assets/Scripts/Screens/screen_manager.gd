@@ -2,6 +2,7 @@ extends Node
 
 var driverHelper
 var screenList
+var screenCount
 var screenScene = preload("res://Items/screen.tscn")
 var screenPrimary
 var sceneRoot
@@ -14,15 +15,29 @@ func _ready() -> void:
 	
 	# Instantiate a new screen instance to display the user's real screen.
 	# Assign it an index number of 0, as the first screen.
-	screenPrimary = screenScene.instantiate()
-	add_child(screenPrimary)
+	#screenPrimary = screenScene.instantiate()
+	#add_child(screenPrimary)
 	
-	var screenMesh = screenPrimary.get_node("Screen")
-	screenMesh.screenIndex = 0
+	screenCount = DisplayServer.get_screen_count()
+	print(screenCount)
+	
+	screenList = Array()
+	
+	for i in screenCount:
+		print("Screen ", i, ": ", DisplayServer.screen_get_size(i))
+		var tempScreen = screenScene.instantiate()
+		
+		var screenMesh = tempScreen.get_node("Screen")
+		screenMesh.screenIndex = i
+		
+		add_child(tempScreen)
+		screenList.append(tempScreen)
+	
+
 	
 	# Start the list of screens with the primary screen.
 	# The list item is the reference to the screen, and an index number.
-	screenList = [[screenPrimary, 0]]
+	#screenList = [[screenPrimary, 0]]
 	
 
 
