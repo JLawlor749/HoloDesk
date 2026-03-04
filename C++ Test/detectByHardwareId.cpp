@@ -5,9 +5,13 @@
 #include <string>
 #include <cfgmgr32.h>
 
+
+
 // This line is used to link the required library files.
 #pragma comment(lib, "setupapi.lib")
 #pragma comment(lib, "cfgmgr32.lib")
+
+
 
 // Function to determine if the hardware ID of a given device matches the template hardware ID.
 // Parameters:
@@ -60,6 +64,72 @@ bool HardwareIdMatches(HDEVINFO deviceInfoSet, SP_DEVINFO_DATA& deviceInfoData, 
     return false;
 
 }
+
+
+
+// Function to determine toggle the enabled or disabled state of a given device.
+// Parameters:
+//		> SP_DEVINFO_DATA& deviceInfoData - a reference to a SP_DEVINFO_DATA structure. A SP_DEVINFO_DATA structure defines a device instance that is a member of a device information set. This represents one specific device from the previous parameter.
+//      > ULONG deviceStatus - an unsigned long integer containing a bitwise code that corresponds to the state of the device.
+DWORD toggleDeviceState(SP_DEVINFO_DATA deviceInfoData, ULONG deviceStatus)
+{
+    if (deviceStatus & DN_STARTED)
+    {
+        if (!CM_Disable_DevNode(deviceInfoData.DevInst, 0) == CR_SUCCESS)
+        {
+            std::cout << "Failed to disable device.\n";
+            return 0;
+        }
+        else
+        {
+            std::cout << "Disabled device!\n";
+        }
+    }
+    else
+    {
+        if (!CM_Enable_DevNode(deviceInfoData.DevInst, 0) == CR_SUCCESS)
+        {
+            std::cout << "Failed to enable device.\n";
+            return 0;
+        }
+        else
+        {
+            std::cout << "Enabled device!\n";
+        }
+    }
+
+    return 1;
+}
+
+
+
+// Function to restart a given device without fully disabling it.
+// Parameters:
+//		> HDEVINFO deviceInfoSet - handle to a device information set that contains device information elements. A device information set consists of device information elements for all the devices that belong to some device setup class or device interface class.
+//		> SP_DEVINFO_DATA& deviceInfoData - a reference to a SP_DEVINFO_DATA structure. A SP_DEVINFO_DATA structure defines a device instance that is a member of a device information set. This represents one specific device from the previous parameter.
+DWORD restartDevice(HDEVINFO deviceInfoSet, SP_DEVINFO_DATA& deviceInfoData)
+{
+    SP_PROPCHANGE_PARAMS restartParams = {};
+
+    restartParams.StateChange = DICS_PROPCHANGE;
+    restartParams.Scope = DICS_FLAG_GLOBAL;
+    restartParams.HwProfile = 0;
+    restartParams.ClassInstallHeader.InstallFunction = DIF_PROPERTYCHANGE;
+    restartParams.ClassInstallHeader.cbSize = sizeof(SP_CLASSINSTALL_HEADER);
+
+    SetupDiSetClassInstallParams(deviceInfoSet, &deviceInfoData, &restartParams.ClassInstallHeader, sizeof(SP_PROPCHANGE_PARAMS));
+
+    if (SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, deviceInfoSet, &deviceInfoData))
+    {
+        return 1;
+    }
+    else
+    {
+        return GetLastError();
+    }
+}
+
+
 
 
 
@@ -157,37 +227,13 @@ int main()
                 std::wcout << L"Device " << friendlyName << " is in another state\n";
             }
 
-            int userInput = 0;
-            std::wcout << "Would you like to change the device state?\n1 - YES\n0 - NO\n";
-            std::cin >> userInput;
+            //toggleDeviceState(deviceInfoData, deviceStatus);
 
-            if (userInput == 1)
-            {
-                if (deviceStatus & DN_STARTED)
-                {
-                    if (!CM_Disable_DevNode(deviceInfoData.DevInst, 0) == CR_SUCCESS)
-                    {
-                        std::cout << "Failed to disable device.\n";
-                        return 1;
-                    }
-                    else
-                    {
-                        std::cout << "Disabled device!\n";
-                    }
-                }
-                else
-                {
-                    if (!CM_Enable_DevNode(deviceInfoData.DevInst, 0) == CR_SUCCESS)
-                    {
-                        std::cout << "Failed to enable device.\n";
-                        return 1;
-                    }
-                    else
-                    {
-                        std::cout << "Enabled device!\n";
-                    }
-                }
-            }
+            std::wcout << "\n\nDevice restart status: " << (restartDevice(deviceInfoSet, deviceInfoData));
+
+            int test;
+
+            std::cin >> test;
 
             break;
         }
