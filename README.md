@@ -64,6 +64,15 @@ and ultimately not worth it, as this is something the user can easily change the
 
 <br><br>
 
+Need to compile the CPP script as a GDExtension: ![https://docs.godotengine.org/en/4.4/tutorials/scripting/gdextension/gdextension_cpp_example.html](https://docs.godotengine.org/en/4.4/tutorials/scripting/gdextension/gdextension_cpp_example.html)
+
+Basic steps seem to be something like this:
+* Get godot-cpp repository - this can be cloned or downloaded, but is recommended to be added to project folder as git submodule.
+* Build CPP bindings - `godot --dump-extension-api` to dump `extension_api.json` into executable folder. This is used with a `SCons` build command.
+* Then build CPP file - will need to use some Godot specific syntax and definitions, and will be `namespace godot`.
+* Compile CPP file - use `SConstruct` file wil `SCons` to define how it should be built, referencing the one in the godot-cpp repo.
+
+<br><br>
 
 ### Next Four Weeks - Monday 02/March to Sunday 29/March
 ___
