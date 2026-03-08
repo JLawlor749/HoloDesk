@@ -1,0 +1,4 @@
+[submodule "C++ Test/gdextension-driver-communication/godot-cpp"]
+	path = C++ Test/gdextension-driver-communication/godot-cpp
+	url = https://github.com/godotengine/godot-cpp
+	branch = 4.5
