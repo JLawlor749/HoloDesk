@@ -67,7 +67,7 @@ bool DeviceManager::HardwareIdMatches(HDEVINFO deviceInfoSet, SP_DEVINFO_DATA& d
 
 int DeviceManager::restartDevice(const std::string& hardwareId)
 {
-    godot::UtilityFunctions::print("Beginning device restart...");
+    //godot::UtilityFunctions::print("Beginning device restart...");
 
     // Define a new wide string for the target hardware ID.
     const std::wstring targetId(hardwareId.begin(), hardwareId.end());
@@ -296,8 +296,6 @@ int DeviceManager::enableDevice(const std::string& hardwareId)
 
 int DeviceManager::disableDevice(const std::string& hardwareId)
 {
-    godot::UtilityFunctions::print("Beginning device disable...");
-
     // Define a new wide string for the target hardware ID.
     const std::wstring targetId(hardwareId.begin(), hardwareId.end());
 

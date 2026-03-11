@@ -41,6 +41,9 @@ func _ready() -> void:
 	self.material_override = material
 	
 	fCount = 0
+	
+	print("Created screen: " + str(screenIndex))
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
