@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b0mbvi14cwj5o"]
+
+[ext_resource type="Texture2D" uid="uid://el5cf1r8gn62" path="res://Assets/Models/Screens/cursor.png" id="1_0gbuf"]
+
+[resource]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_0gbuf")

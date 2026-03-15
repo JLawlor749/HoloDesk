@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ux6sohjmto0a"]
+[gd_scene load_steps=18 format=3 uid="uid://ux6sohjmto0a"]
 
 [ext_resource type="Script" uid="uid://cwg4b6lbmjiii" path="res://Assets/Scripts/Screens/screen_capture.gd" id="1_68wpl"]
 [ext_resource type="Script" uid="uid://bp7hgsgy7bx2m" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_m6qmk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://28ri2nl8ykco" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="4_nugu2"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_r4knw"]
 [ext_resource type="Animation" uid="uid://ccds2u22gbxn7" path="res://addons/godot-xr-tools/hands/animations/right/Grip.res" id="6_3k7s2"]
+[ext_resource type="Texture2D" uid="uid://el5cf1r8gn62" path="res://Assets/Models/Screens/cursor.png" id="8_5oh7s"]
 
 [sub_resource type="Resource" id="Resource_sjou1"]
 script = ExtResource("4_nugu2")
@@ -40,14 +41,6 @@ emission_enabled = true
 emission = Color(0, 0.655007, 0.626122, 1)
 emission_energy_multiplier = 1.5
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_5oh7s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4knw"]
-albedo_color = Color(0, 0.6838327, 0.7166143, 1)
-emission_enabled = true
-emission = Color(0, 0.7861442, 0.7408774, 1)
-emission_energy_multiplier = 2.0
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_pndy7"]
 
 [node name="VirtualScreen" type="RigidBody3D"]
@@ -76,27 +69,28 @@ mesh = SubResource("TextMesh_b2y48")
 skeleton = NodePath("../Screen")
 surface_material_override/0 = SubResource("StandardMaterial3D_g5jfp")
 
-[node name="Screen" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = SubResource("QuadMesh_evh5b")
+[node name="Screen" type="Node3D" parent="."]
 script = ExtResource("1_68wpl")
 
-[node name="Back" type="MeshInstance3D" parent="Screen"]
+[node name="ScreenMesh" type="MeshInstance3D" parent="Screen"]
+mesh = SubResource("QuadMesh_evh5b")
+skeleton = NodePath("../..")
+
+[node name="Back" type="MeshInstance3D" parent="Screen/ScreenMesh"]
 transform = Transform3D(-0.5, -7.54979e-08, 3.300118e-15, 0, -2.1855694e-08, -0.5, 7.54979e-08, -0.5, 2.1855694e-08, 0, 0, -0.0043435395)
 mesh = SubResource("PlaneMesh_pndy7")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_5oh7s")
 
-[node name="Frame" type="MeshInstance3D" parent="Screen"]
+[node name="Frame" type="MeshInstance3D" parent="Screen/ScreenMesh"]
 transform = Transform3D(0.51, 0, 0, 0, -2.2292808e-08, -0.51, 0, 0.51, -2.2292808e-08, 0, 0, -0.0043435395)
 mesh = SubResource("PlaneMesh_pndy7")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_nugu2")
 
-[node name="MouseCursor" type="Node3D" parent="Screen"]
-
-[node name="CursorMesh" type="MeshInstance3D" parent="Screen/MouseCursor"]
-transform = Transform3D(0.0070710676, -3.090862e-10, -0.0070710676, -0.0070710676, -3.090862e-10, -0.0070710676, 0, 0.01, -4.371139e-10, 0, 0, 0.0030382574)
-mesh = SubResource("PlaneMesh_5oh7s")
-surface_material_override/0 = SubResource("StandardMaterial3D_r4knw")
+[node name="CursorMesh" type="Sprite3D" parent="Screen"]
+transform = Transform3D(0.015, 0, 0, 0, 0.015, 0, 0, 0, 0.015, 0, 0, 0.00069963187)
+texture = ExtResource("8_5oh7s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.28523058, 0)

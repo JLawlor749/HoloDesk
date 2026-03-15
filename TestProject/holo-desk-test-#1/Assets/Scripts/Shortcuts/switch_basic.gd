@@ -11,7 +11,7 @@ var output := []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if hingeComponent == null:
-		hingeComponent = self.get_node("InteractableLever")
+		hingeComponent = self.get_node("LeverOrigin/InteractableLever")
 		
 	hingeTriggered = false
 
@@ -21,7 +21,6 @@ func _process(_delta: float) -> void:
 	hingePos = hingeComponent.hinge_position
 	
 	if hingePos == hingeComponent.hinge_limit_max and hingeTriggered == false:
-		thread = Thread.new()
 		call_deferred("_run_thread")
 		hingeTriggered = true
 		

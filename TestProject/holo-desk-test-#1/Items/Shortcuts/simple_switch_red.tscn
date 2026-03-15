@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=4 uid="uid://bfcs6v4xugkvs"]
 
-[ext_resource type="Script" uid="uid://d1bikhkktgo60" path="res://Items/Shortcuts/switch_basic.gd" id="1_fs8v3"]
+[ext_resource type="Script" uid="uid://d1bikhkktgo60" path="res://Assets/Scripts/Shortcuts/switch_basic.gd" id="1_fs8v3"]
 [ext_resource type="Material" uid="uid://rpwnu35wl7y0" path="res://Assets/Models/Shortcut Elements/switch_basic/switch_basic.tres" id="2_kfn3p"]
 [ext_resource type="Script" uid="uid://myu30tdtbujd" path="res://addons/godot-xr-tools/interactables/interactable_hinge.gd" id="3_xc8g2"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_m4ilk"]

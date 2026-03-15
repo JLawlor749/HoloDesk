@@ -10,6 +10,7 @@ var screenScene = preload("res://Items/screen.tscn") ##Preloaded scene containin
 
 var screenPrimary ##To store the component representing the primary screen (physical device).
 
+var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,9 +31,8 @@ func _ready() -> void:
 	add_child(screenPrimary)
 	
 	# Enable the digital display driver.
-	driverHelper.enableDevice("ROOT\\MttVDD")
+	driverHelper.enableDevice(hardwareID)
 	await get_tree().create_timer(3).timeout
-	
 	
 	# Now we can get the other, simulated screens, if any exist.
 	screenCount = DisplayServer.get_screen_count()
@@ -60,7 +60,7 @@ func _ready() -> void:
 		screenList.append(tempScreen)
 		
 	print("\nVirtual Screens Ready!")
-
+	updateScreens(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -71,4 +71,26 @@ func _process(delta: float) -> void:
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		# Disable the digital display driver.
-		driverHelper.disableDevice("ROOT\\MttVDD")
+		driverHelper.disableDevice(hardwareID)
+
+
+func updateScreens(num : int):
+	var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
+	var fileContent = settingsFile.get_as_text()
+	
+	var regex = RegEx.create_from_string("(?<=<count>)\\d+(?=</count>)")
+	
+	var result = regex.sub(fileContent, str(num), true)
+	
+	settingsFile.store_string(result)
+	
+	driverHelper.restartDevice(hardwareID)
+	
+	screenCount = DisplayServer.get_screen_count()
+	
+	#var diff = (screenCount-1) - len(screenList)
+	
+	print("screenlist: ", len(screenList))
+	print("screencount: ", screenCount)
+	
+	
