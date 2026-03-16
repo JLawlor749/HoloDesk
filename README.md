@@ -78,20 +78,20 @@ Basic steps seem to be something like this:
 ___
 
 **Tuesday 03/March - Thursday 05/March**
-* Change activation toggle to be a function.
-* Add restart function.
-* Compile as Godot Extension.
+* Change activation toggle to be a function. ✅
+* Add restart function. ✅
+* Compile as Godot Extension. ✅
 
 **Saturday 07/March - Sunday 08/March**
-* Screen Menu - Attached to wrist, select number of screens, LIFO setup.
-* Integrate GDScript with GDExtension to change number of screens and restart driver.
+* Screen Menu - Attached to wrist, select number of screens, LIFO setup. ✅
+* Integrate GDScript with GDExtension to change number of screens and restart driver. ✅
 
 **Tuesday 10/March - Sunday 15/March**
 * Start working on shortcuts. 2 new buttons and 1 new lever.
 * Set up position system.
-* Set up menu - based on screen menu.
+* Set up menu - based on screen menu. ✅
 * Select shortcut type, then function, then position.
-* Can stick with simply opening apps for now.
+* Can stick with simply opening apps for now. ✅
 
 **Tuesday 17/March - Thursday 19/March**
 * Environments - Make at least 3 more to go with office.
