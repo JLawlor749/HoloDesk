@@ -44,8 +44,13 @@ func _ready() -> void:
 	
 	# Assign pickable component.
 	grabPoint = self.get_parent()
-	grabPoint.position += Vector3(screenIndex*1.25, 0, 0)
 	grabIndicator = grabPoint.get_node("GrabIndicator")
+	
+	if screenIndex > 0:
+		if screenIndex % 2 == 0:
+			grabPoint.position += Vector3(-((screenIndex-1)*1.2), 0, 0)
+		else:
+			grabPoint.position += Vector3((screenIndex*1.2), 0, 0)
 	
 	# Assign screen mesh.
 	screenMesh = self.get_node("ScreenMesh")

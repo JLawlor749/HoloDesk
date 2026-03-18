@@ -12,6 +12,8 @@ var screenPrimary ##To store the component representing the primary screen (phys
 
 var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 
+var fNum = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -60,11 +62,13 @@ func _ready() -> void:
 		screenList.append(tempScreen)
 		
 	print("\nVirtual Screens Ready!")
-	updateScreens(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	fNum += 1
+	
+	if fNum == 300:
+		updateScreens(1)
 	
 
 
@@ -72,6 +76,15 @@ func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		# Disable the digital display driver.
 		driverHelper.disableDevice(hardwareID)
+		
+		var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
+		var fileContent = settingsFile.get_as_text()
+		
+		var regex = RegEx.create_from_string("(?<=<count>)\\d+(?=</count>)")
+		
+		var result = regex.sub(fileContent, str(1), true)
+		
+		settingsFile.store_string(result)
 
 
 func updateScreens(num : int):
@@ -84,13 +97,23 @@ func updateScreens(num : int):
 	
 	settingsFile.store_string(result)
 	
+	var screenDiff = num - (screenCount-1)
+	
+	if screenDiff == 0:
+		return
+		
+	elif screenDiff < 0:
+		for i in range(0, abs(screenDiff)):
+			var target = screenList[(len(screenList)-1)-i]
+			target.queue_free()
+		
+	else:
+		pass
+	
 	driverHelper.restartDevice(hardwareID)
 	
-	screenCount = DisplayServer.get_screen_count()
-	
-	#var diff = (screenCount-1) - len(screenList)
-	
+	print("screenCount: ", screenCount)
 	print("screenlist: ", len(screenList))
-	print("screencount: ", screenCount)
+	print("screenDiff: ", screenDiff)
 	
 	
