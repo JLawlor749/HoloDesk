@@ -24,7 +24,7 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
-text = "Add Shortcut Menu"
+text = "Delete Shortcut Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

@@ -1,7 +1,7 @@
-[gd_scene load_steps=58 format=3 uid="uid://bfym8itd462o7"]
+[gd_scene load_steps=59 format=3 uid="uid://bfym8itd462o7"]
 
 [ext_resource type="Texture2D" uid="uid://b1bk5faswbq7u" path="res://Assets/Models/Environments/Office/citySky.png" id="1_3munc"]
-[ext_resource type="PackedScene" uid="uid://cgu4een6h16m2" path="res://Environments/Office.tscn" id="2_j8ma2"]
+[ext_resource type="PackedScene" uid="uid://c5wjji4we5wgb" path="res://Environments/OfficeNew.tscn" id="2_k3df4"]
 [ext_resource type="Script" uid="uid://7ian4s7jsdp4" path="res://Assets/Scripts/Screens/screen_manager.gd" id="3_uyy4n"]
 [ext_resource type="Script" uid="uid://c21s28nn125er" path="res://addons/godot-xr-tools/hands/physics_hand.gd" id="6_uyy4n"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://dl8yf7ipqotd1" path="res://addons/godot-xr-tools/hands/animations/left/hand_blend_tree.tres" id="7_j4ich"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://cl7cil7enh5jj" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="24_ltbb1"]
 [ext_resource type="Script" uid="uid://chrai7njslfg4" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d_body.gd" id="25_4shbg"]
 [ext_resource type="PackedScene" uid="uid://btwfdjhgoqapy" path="res://Assets/Menus/zone_wrist_ui.tscn" id="25_xoafm"]
+[ext_resource type="Script" uid="uid://tlblcctdr8on" path="res://Assets/Scripts/Shortcuts/shortcut_manager.gd" id="28_3aym8"]
 
 [sub_resource type="GDScript" id="GDScript_7gbr0"]
 script/source = "extends Node3D
@@ -346,36 +347,24 @@ script = SubResource("GDScript_7gbr0")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_0j70y")
 
-[node name="Node3D" parent="World" instance=ExtResource("2_j8ma2")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.0006619692, 0.0017042756, 0.00028303266)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
-transform = Transform3D(0.9771013, 0.13072188, -0.16788335, 0, 0.78901976, 0.6143679, 0.21277459, -0.6002997, 0.7709523, 0, 5.7844143, 0)
+transform = Transform3D(0.70923865, 0.43311006, -0.55623406, -2.8163853e-09, 0.7890197, 0.61436796, 0.7049685, -0.43573344, 0.55960333, 0, 5.7844143, 0)
+light_color = Color(0.9529412, 0.8784314, 0.8784314, 1)
+light_energy = 0.5
+light_bake_mode = 1
+
+[node name="OfficeNew" parent="World" instance=ExtResource("2_k3df4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="ScreenManager" type="Node3D" parent="." node_paths=PackedStringArray("driverHelper")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5957485, -1.4493768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4557018, -1.3420067)
 script = ExtResource("3_uyy4n")
 driverHelper = NodePath("DriverHelper")
 
 [node name="DriverHelper" type="DriverController" parent="ScreenManager"]
 
-[node name="SimpleSwitchRed" parent="." instance=ExtResource("23_g4wru")]
-transform = Transform3D(0.72284657, 0.65928, -0.20698497, 1.2353186e-08, 0.2995404, 0.95408374, 0.6910086, -0.6896561, 0.21652174, 1.018131, 1.2733456, -2.1360545)
-executablePath = "C:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe"
-input = ["https://www.tudublin.ie/"]
-
-[node name="SimpleSwitchRed2" parent="." instance=ExtResource("23_g4wru")]
-transform = Transform3D(0.4630021, 0.8456588, -0.26549974, 2.1380632e-08, 0.29954037, 0.9540837, 0.8863571, -0.44174272, 0.1386878, 1.21487, 1.2733456, -1.8673956)
-executablePath = "C:\\\\Users\\\\nwtpc008\\\\AppData\\\\Local\\\\Programs\\\\Microsoft VS Code\\\\Code.exe"
-input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\__FINAL YEAR PROJECT\\\\Project Main\\\\HoloDesk\\\\TestProject\\\\holo-desk-test-#1\\\\Assets\\\\Scripts\\\\Screens\\\\screen_capture.gd"]
-
-[node name="SimpleSwitchRed3" parent="." instance=ExtResource("23_g4wru")]
-transform = Transform3D(0.19231646, 0.9362737, -0.29394883, 4.273079e-08, 0.29954043, 0.9540839, 0.9813331, -0.18348595, 0.057606496, 1.3428804, 1.2733456, -1.5694509)
-executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
-input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
-
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066, 0.6049095)
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -1264,6 +1253,53 @@ top_level = true
 collision_layer = 524288
 collision_mask = 1023
 script = ExtResource("23_p4pkq")
+
+[node name="ShortcutManager" type="Node3D" parent="."]
+script = ExtResource("28_3aym8")
+
+[node name="SimpleSwitchRed" parent="ShortcutManager" instance=ExtResource("23_g4wru")]
+transform = Transform3D(0.72284657, 0.65928, -0.20698497, 1.2353186e-08, 0.2995404, 0.95408374, 0.6910086, -0.6896561, 0.21652174, 1.018131, 1.2733456, -2.1360545)
+executablePath = "C:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe"
+input = ["https://www.tudublin.ie/"]
+
+[node name="SimpleSwitchRed2" parent="ShortcutManager" instance=ExtResource("23_g4wru")]
+transform = Transform3D(0.4630021, 0.8456588, -0.26549974, 2.1380632e-08, 0.29954037, 0.9540837, 0.8863571, -0.44174272, 0.1386878, 1.21487, 1.2733456, -1.8673956)
+executablePath = "C:\\\\Users\\\\nwtpc008\\\\AppData\\\\Local\\\\Programs\\\\Microsoft VS Code\\\\Code.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\__FINAL YEAR PROJECT\\\\Project Main\\\\HoloDesk\\\\TestProject\\\\holo-desk-test-#1\\\\Assets\\\\Scripts\\\\Screens\\\\screen_capture.gd"]
+
+[node name="SimpleSwitchRed3" parent="ShortcutManager" instance=ExtResource("23_g4wru")]
+transform = Transform3D(0.19231646, 0.9362737, -0.29394883, 4.273079e-08, 0.29954043, 0.9540839, 0.9813331, -0.18348595, 0.057606496, 1.3428804, 1.2733456, -1.5694509)
+executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
+
+[node name="Slot1" type="Node3D" parent="ShortcutManager"]
+transform = Transform3D(0.90162665, -0.43250066, -0.0035665797, 0.11358017, 0.22880577, 0.9668234, -0.4173357, -0.8721188, 0.25542086, -1.062, 0.7482262, -0.972)
+
+[node name="SimpleSwitchRed5" parent="ShortcutManager/Slot1" instance=ExtResource("23_g4wru")]
+executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
+
+[node name="Slot2" type="Node3D" parent="ShortcutManager"]
+transform = Transform3D(1, 0, 0, 0, 0.28863075, 0.9574403, 0, -0.9574403, 0.28863075, -0.27180785, 0.77277166, -1.0972424)
+
+[node name="SimpleSwitchRed5" parent="ShortcutManager/Slot2" instance=ExtResource("23_g4wru")]
+executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
+
+[node name="Slot3" type="Node3D" parent="ShortcutManager"]
+transform = Transform3D(1, 0, 0, 0, 0.28863075, 0.9574403, 0, -0.9574403, 0.28863075, 0.272, 0.773, -1.097)
+
+[node name="SimpleSwitchRed5" parent="ShortcutManager/Slot3" instance=ExtResource("23_g4wru")]
+executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
+
+[node name="Slot4" type="Node3D" parent="ShortcutManager"]
+transform = Transform3D(0.90162665, 0.43250063, 0.0035665787, -0.11358017, 0.22880575, 0.96682316, 0.4173357, -0.8721187, 0.2554208, 1.062, 0.7482262, -0.972)
+
+[node name="SimpleSwitchRed4" parent="ShortcutManager/Slot4" instance=ExtResource("23_g4wru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+executablePath = "C:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office16\\\\WINWORD.exe"
+input = ["C:\\\\Users\\\\nwtpc008\\\\Documents\\\\C22388703_HoloDesk_InterimReport_Final.docx"]
 
 [connection signal="pointing_event" from="XROrigin3D/LeftHand/LeftPhysicsHand/Hand_Nails_low_L/Armature/Skeleton3D/BoneAttachment3D/Poke" to="XROrigin3D/LeftHand/LeftPhysicsHand/Hand_Nails_low_L/Armature/Skeleton3D/BoneAttachment3D/Poke/Rumbler" method="rumble_pointer"]
 [connection signal="body_contact_end" from="XROrigin3D/LeftHand/LeftPhysicsHand/Hand_Nails_low_L/Armature/Skeleton3D/BoneAttachment3D/Poke/PokeBody" to="XROrigin3D/LeftHand/LeftPhysicsHand/Hand_Nails_low_L/Armature/Skeleton3D/BoneAttachment3D/Poke" method="_on_PokeBody_body_contact_end"]

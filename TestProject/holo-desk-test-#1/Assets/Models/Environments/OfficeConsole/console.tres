@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://dj0gnhpopiitn"]
+
+[ext_resource type="Texture2D" uid="uid://btri6tvy144wy" path="res://Assets/Models/Environments/OfficeConsole/office_console_albedo.png" id="1_grmvf"]
+[ext_resource type="Texture2D" uid="uid://ddvndstv3tkmq" path="res://Assets/Models/Environments/OfficeConsole/office_console_roughness.png" id="2_enxk0"]
+[ext_resource type="Texture2D" uid="uid://dt1tn4ow4mlfb" path="res://Assets/Models/Environments/OfficeConsole/office_console_normal.png" id="3_7yfwk"]
+
+[resource]
+resource_name = "Oak Wood Grain"
+cull_mode = 2
+albedo_texture = ExtResource("1_grmvf")
+metallic_texture = ExtResource("2_enxk0")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_enxk0")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_7yfwk")

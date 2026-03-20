@@ -12,7 +12,8 @@ var screenPrimary ##To store the component representing the primary screen (phys
 
 var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 
-var fNum = 0
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,7 +35,7 @@ func _ready() -> void:
 	
 	# Enable the digital display driver.
 	driverHelper.enableDevice(hardwareID)
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(5).timeout
 	
 	# Now we can get the other, simulated screens, if any exist.
 	screenCount = DisplayServer.get_screen_count()
@@ -60,16 +61,15 @@ func _ready() -> void:
 		
 		# Add the new screen to the screen list.
 		screenList.append(tempScreen)
-		
-	print("\nVirtual Screens Ready!")
+
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	fNum += 1
-	
-	if fNum == 300:
-		updateScreens(1)
-	
+	pass
+
+
 
 
 func _notification(what):
@@ -87,33 +87,63 @@ func _notification(what):
 		settingsFile.store_string(result)
 
 
-func updateScreens(num : int):
+
+
+func updateScreenNumber(targetNum : int):
+	# Open file and get contents as text.
 	var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
 	var fileContent = settingsFile.get_as_text()
 	
+	# Define a REGEX to search for instances of a number between count tags.
 	var regex = RegEx.create_from_string("(?<=<count>)\\d+(?=</count>)")
 	
-	var result = regex.sub(fileContent, str(num), true)
+	# Substitute the number found by the REGEX with the number provided to the function.
+	var result = regex.sub(fileContent, str(targetNum), true)
 	
+	# Store the new text back as a string to the XML file.
 	settingsFile.store_string(result)
+	settingsFile.close()
+	settingsFile = null
 	
-	var screenDiff = num - (screenCount-1)
+	# Restart the driver to start simulation of new screen, or end simulation of old ones.
+	driverHelper.restartDevice(hardwareID)
+	await get_tree().create_timer(5).timeout
 	
+	# Calculate the difference in the target number of screens to the current number.
+	var screenDiff = targetNum - (screenCount-1)
+	
+	# If there's no difference, we don't need to do anything.
 	if screenDiff == 0:
 		return
-		
+	
+	# If the difference is negative, we need to remove screens.
 	elif screenDiff < 0:
+		# For each screen to be removed, we traverse from the end of the screen list and remove instances.
 		for i in range(0, abs(screenDiff)):
 			var target = screenList[(len(screenList)-1)-i]
 			target.queue_free()
 		
+	# Otherwise, we need to add screens.
 	else:
-		pass
-	
-	driverHelper.restartDevice(hardwareID)
+		# For each screen to be added, we create new instances and add them to the screen list.
+		for i in range(0, abs(screenDiff)):
+			# The index for each screen is the index of the previous one, plus 1.
+			var index = (screenList[(len(screenList)-1)].get_node("Screen").screenIndex) + 1
+			print("Updating... Adding Screen ", index, ": ", DisplayServer.screen_get_size(index))
+			
+			# Instantiate new screen.
+			var tempScreen = screenScene.instantiate()
+			
+			# Get screen component holding script.
+			var screenMesh = tempScreen.get_node("Screen")
+			
+			# Set the index to its number.
+			screenMesh.screenIndex = index
+			add_child(tempScreen)
+			
+			# Add the new screen to the screen list.
+			screenList.append(tempScreen)
 	
 	print("screenCount: ", screenCount)
 	print("screenlist: ", len(screenList))
 	print("screenDiff: ", screenDiff)
-	
-	

@@ -23,7 +23,7 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_screen_num_pressed(extra_arg_0: int) -> void:
-	print("Screen Num: ", extra_arg_0)
+	menuMasterNode.setScreenNumber(extra_arg_0)
 
 
 func _on_add_scut_button_pressed() -> void:
@@ -35,8 +35,12 @@ func _on_delete_scut_button_pressed() -> void:
 
 
 func _on_add_shortcut_num_pressed(extra_arg_0: int) -> void:
-	print(extra_arg_0)
+	menuMasterNode.setMenuScene("select_shortcut_type")
 
 
 func _on_del_shortcut_num_pressed(extra_arg_0: int) -> void:
-	print(extra_arg_0)
+	menuMasterNode.removeShortcut(extra_arg_0)
+
+
+func _add_shortcut_type(extra_arg_0: int) -> void:
+	menuMasterNode.setMenuScene("select_shortcut_command")

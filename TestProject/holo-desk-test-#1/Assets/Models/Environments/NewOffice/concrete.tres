@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://brai7h7ybjhm0"]
+
+[ext_resource type="Texture2D" uid="uid://46mmkgguymwm" path="res://Assets/Models/Environments/NewOffice/concrete_albedo.png" id="1_2d3a2"]
+[ext_resource type="Texture2D" uid="uid://dccfomlu7g4b5" path="res://Assets/Models/Environments/NewOffice/concrete_roughness.png" id="3_2iiyd"]
+
+[resource]
+shading_mode = 2
+albedo_texture = ExtResource("1_2d3a2")
+roughness_texture = ExtResource("3_2iiyd")

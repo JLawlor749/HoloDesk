@@ -15,6 +15,7 @@ var material ##The material that the texture made from screenCap will be applied
 var screenIndex ##The index number of this screen (primary is 0, simulated are 1-5).
 
 var fCount ##A count variable to track the number of frames.
+var fIntrvl = 2 ##A variable to determine the frame interval of screen capture.
 
 var grabPoint ##Variable to store the grabbable parent node.
 var grabIndicator ##Variable used to add the mesh indicator for the grabbable.
@@ -28,8 +29,13 @@ var inside ##Variable to determine whether the mouse is inside this screen or no
 
 var uv ##Vector2 to store the 2D position of the cursor sprite.
 
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	print("Beginning Setup Of Screen: ", screenIndex)
 	
 	# Create a new material.
 	material = StandardMaterial3D.new()
@@ -77,15 +83,19 @@ func _ready() -> void:
 
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	
 	fCount += 1
 	
 	# Capture the content on the screen, and update the texture with new content.
-	if fCount % 2 == 0:
+	if fCount % int(fIntrvl) == 0:
 		screenCap = DisplayServer.screen_get_image(screenIndex)
-		texture.update(screenCap)
+		if texture:
+			texture.update(screenCap)
+		else:
+			texture = ImageTexture.create_from_image(screenCap)
 		
 	# Capture the global mouse position to update the cursor.
 	globalMouse = DisplayServer.mouse_get_position()
@@ -110,12 +120,14 @@ func _process(_delta: float) -> void:
 		var curY = remap(uv[1], 0, 1, (screenHeight/2), -1*(screenHeight/2))
 		
 		mouseCursorSprite.position = Vector3(curX, curY, 0.01)
+		fIntrvl = 2
 		
 	else:
 		mouseCursorSprite.hide()
-	
-	
+		fIntrvl = 6
 
-	
-	
-	
+
+
+
+func setNewTexture(newTex):
+	texture.update(newTex)
