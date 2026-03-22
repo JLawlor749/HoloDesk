@@ -87,15 +87,14 @@ ___
 * Integrate GDScript with GDExtension to change number of screens and restart driver. ✅
 
 **Tuesday 10/March - Sunday 15/March**
-* Start working on shortcuts. 2 new buttons and 1 new lever.
-* Set up position system.
+* Set up position system. ✅
 * Set up menu - based on screen menu. ✅
-* Select shortcut type, then function, then position.
-* Can stick with simply opening apps for now. ✅
+* Select shortcut type, then function, then position. ✅
+* Can stick with simply opening apps for now. 
 
 **Tuesday 17/March - Thursday 19/March**
 * Environments - Make at least 3 more to go with office.
-* Rework office environment - bake lighting, better textures.
+* Rework office environment - bake lighting, better textures. ✅
 
 **Saturday 21/March**
 * Add environment menu, and system for switching environments.
