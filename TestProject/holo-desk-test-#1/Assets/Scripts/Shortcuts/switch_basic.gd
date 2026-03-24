@@ -1,38 +1,51 @@
 extends Node3D
 
-@export var hingeComponent : XRToolsInteractableHinge
-@export var executablePath : String
-@export var input : Array
-var thread: Thread
-var hingePos : float
-var hingeTriggered : bool
-var output := []
+var hingeComponentNode : XRToolsInteractableHinge ##Variable to hold the hinge component and access position.
+
+@export var commandString : String ##Variable to store the command to be run.
+var thread: Thread ##The thread that will be used to run the command non-blocking.
+
+var hingePos : float ##The position of the hinge as a floating point number.
+var hingeTriggered : bool ##Whether the hinge is or is not currently triggered.
+
+var leverSlot : Node3D
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if hingeComponent == null:
-		hingeComponent = self.get_node("LeverOrigin/InteractableLever")
+	if hingeComponentNode == null:
+		hingeComponentNode = self.get_node("LeverOrigin/InteractableLever")
 		
 	hingeTriggered = false
 
 
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	hingePos = hingeComponent.hinge_position
+	hingePos = hingeComponentNode.hinge_position
 	
-	if hingePos == hingeComponent.hinge_limit_max and hingeTriggered == false:
+	if hingePos == hingeComponentNode.hinge_limit_max and hingeTriggered == false:
 		call_deferred("_run_thread")
 		hingeTriggered = true
 		
-	elif hingePos != hingeComponent.hinge_limit_max:
+	elif hingePos != hingeComponentNode.hinge_limit_max:
 		hingeTriggered = false
 
 
+
+
+# Called to start the thread that will run the shortcut's command.
 func _run_thread():
 	thread = Thread.new()
 	thread.start(self.triggerCommand)
 
 
+
+# Called to run the shortcut's command within the thread.
 func triggerCommand():
-	OS.execute(executablePath, input, output)
+	var output = []
+	OS.execute(commandString, [""], output)
 	return "done"

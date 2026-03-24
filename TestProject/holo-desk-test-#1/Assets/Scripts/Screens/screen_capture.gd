@@ -45,8 +45,13 @@ func _ready() -> void:
 	screenSize = DisplayServer.screen_get_size(screenIndex)
 	
 	# Set the scale of the 3D mesh plane to the size of the screen, scaled down.
-	screenWidth = float(screenSize[0])/2000
-	screenHeight = float(screenSize[1])/2000
+	# The virtualized screens are scaled larger.
+	if screenIndex == 0:
+		screenWidth = float(screenSize[0])/1500
+		screenHeight = float(screenSize[1])/1500
+	else:
+		screenWidth = float(screenSize[0])/750
+		screenHeight = float(screenSize[1])/750
 	
 	# Assign pickable component.
 	grabPoint = self.get_parent()
@@ -54,9 +59,9 @@ func _ready() -> void:
 	
 	if screenIndex > 0:
 		if screenIndex % 2 == 0:
-			grabPoint.position += Vector3(-((screenIndex-1)*1.2), 0, 0)
+			grabPoint.position += Vector3(-((screenIndex-1)*1.5), 0, 0.2)
 		else:
-			grabPoint.position += Vector3((screenIndex*1.2), 0, 0)
+			grabPoint.position += Vector3((screenIndex*1.5), 0, 0.2)
 	
 	# Assign screen mesh.
 	screenMesh = self.get_node("ScreenMesh")
@@ -95,6 +100,7 @@ func _process(_delta: float) -> void:
 		if texture:
 			texture.update(screenCap)
 		else:
+			print("Creating screen texture... | ", screenIndex)
 			texture = ImageTexture.create_from_image(screenCap)
 		
 	# Capture the global mouse position to update the cursor.

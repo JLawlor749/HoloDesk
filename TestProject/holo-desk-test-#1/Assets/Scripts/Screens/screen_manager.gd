@@ -12,6 +12,36 @@ var screenPrimary ##To store the component representing the primary screen (phys
 
 var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 
+var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<vdd_settings>
+  <monitors>
+    <count>2</count>
+  </monitors>
+  <gpu>
+    <friendlyname>default</friendlyname>
+  </gpu>
+  <global>
+    <g_refresh_rate>60</g_refresh_rate>
+  </global>
+  <resolutions>
+    <resolution>
+      <width>960</width>
+      <height>540</height>
+      <refresh_rate>30</refresh_rate>
+    </resolution>
+  </resolutions>
+  <options>
+    <CustomEdid>false</CustomEdid>
+    <PreventSpoof>false</PreventSpoof>
+    <EdidCeaOverride>false</EdidCeaOverride>
+    <HardwareCursor>true</HardwareCursor>
+    <SDR10bit>false</SDR10bit>
+    <HDRPlus>false</HDRPlus>
+    <logging>false</logging>
+    <debuglogging>false</debuglogging>
+  </options>
+</vdd_settings>"
+
 
 
 
@@ -32,6 +62,12 @@ func _ready() -> void:
 	# Add it as a child of the screen manager.
 	print("Activating Primary Screen...")
 	add_child(screenPrimary)
+	
+	# Open the driver's XML config and set it to our own usable default.
+	var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
+	settingsFile.store_string(defaultDriverXMLSetup)
+	settingsFile.close()
+	settingsFile = null
 	
 	# Enable the digital display driver.
 	driverHelper.enableDevice(hardwareID)
@@ -90,6 +126,9 @@ func _notification(what):
 
 
 func updateScreenNumber(targetNum : int):
+	print("\n\nUpdating Number of Screens to: ", targetNum, " ------------------------------------")
+	screenCount = DisplayServer.get_screen_count()
+	
 	# Open file and get contents as text.
 	var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
 	var fileContent = settingsFile.get_as_text()
@@ -110,7 +149,10 @@ func updateScreenNumber(targetNum : int):
 	await get_tree().create_timer(5).timeout
 	
 	# Calculate the difference in the target number of screens to the current number.
+	print("Target Number = ", targetNum)
+	print("Screen Count = ", screenCount)
 	var screenDiff = targetNum - (screenCount-1)
+	print("Difference between current screens vs target: ", screenDiff)
 	
 	# If there's no difference, we don't need to do anything.
 	if screenDiff == 0:
@@ -118,9 +160,12 @@ func updateScreenNumber(targetNum : int):
 	
 	# If the difference is negative, we need to remove screens.
 	elif screenDiff < 0:
+		print("Deleting screens...")
 		# For each screen to be removed, we traverse from the end of the screen list and remove instances.
 		for i in range(0, abs(screenDiff)):
 			var target = screenList[(len(screenList)-1)-i]
+			print("Screen to be deleted: ", target, " | Index: ", len(screenList)-1-i)
+			screenList.remove_at((len(screenList)-1)-i)
 			target.queue_free()
 		
 	# Otherwise, we need to add screens.
@@ -144,6 +189,4 @@ func updateScreenNumber(targetNum : int):
 			# Add the new screen to the screen list.
 			screenList.append(tempScreen)
 	
-	print("screenCount: ", screenCount)
-	print("screenlist: ", len(screenList))
-	print("screenDiff: ", screenDiff)
+	print("Screens Updated ------------------------------------\n\n")
