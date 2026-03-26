@@ -1,6 +1,7 @@
 extends Node3D
 
 var menuViewportNode : XRToolsViewport2DIn3D
+var menuUINode : PanelContainer
 
 var screenManagerNode : Node3D
 var shortcutManagerNode : Node3D
@@ -29,12 +30,12 @@ var fNum = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	menuViewportNode = self.get_node("Viewport2Din3D")
-	menuViewportNode.scene_node.menuMasterNode = self
-	
-	print("menu scene master: ", menuViewportNode.scene_node.menuMasterNode)
+	menuUINode = menuViewportNode.scene_node
 
 	screenManagerNode = get_node("/root/Root/ScreenManager")
 	shortcutManagerNode = get_node("/root/Root/ShortcutManager")
+	
+	setMenuScene("main")
 
 
 
@@ -51,34 +52,30 @@ func _process(delta: float) -> void:
 func setMenuScene(targetScene : String):
 	if targetScene == "screens":
 		menuViewportNode.set_scene(screenMenu)
-		menuViewportNode.scene_node.menuMasterNode = self
 		
 	elif targetScene == "shortcut":
 		menuViewportNode.set_scene(shortMenu)
-		menuViewportNode.scene_node.menuMasterNode = self
 		
 	elif targetScene == "environment":
 		menuViewportNode.set_scene(envMenu)
-		menuViewportNode.scene_node.menuMasterNode = self
 		
 	elif targetScene == "options":
 		menuViewportNode.set_scene(optMenu)
-		menuViewportNode.scene_node.menuMasterNode = self
 		
 	elif targetScene == "main":
 		menuViewportNode.set_scene(mainMenu)
-		menuViewportNode.scene_node.menuMasterNode = self
 		shortcutSlot = null
 		shortcutType = null
 		shortcutCommand = null
 		
 	elif targetScene == "add_shortcut":
 		menuViewportNode.set_scene(addScut)
-		menuViewportNode.scene_node.menuMasterNode = self
 		
 	elif targetScene == "delete_shortcut":
 		menuViewportNode.set_scene(deleteScut)
-		menuViewportNode.scene_node.menuMasterNode = self
+		
+	menuUINode = menuViewportNode.scene_node
+	setupNewMenu()
 
 
 
@@ -90,17 +87,23 @@ func setScreenNumber(targetNum):
 
 
 func setTargetSlot(targetSlot):
+	print("Shortcut slot being processed.")
 	shortcutSlot = targetSlot
 	menuViewportNode.set_scene(scutType)
-	menuViewportNode.scene_node.menuMasterNode = self
+	menuUINode = menuViewportNode.scene_node
+	setupNewMenu()
 
 
 
 
 func setTargetType(targetType):
+	print("Shortcut type being processed.")
 	shortcutType = targetType
 	menuViewportNode.set_scene(scutCommand)
-	menuViewportNode.scene_node.menuMasterNode = self
+	menuUINode = menuViewportNode.scene_node
+	menuUINode.commandList = shortcutManagerNode.shortcutCommandsDictionary
+	setupNewMenu()
+	
 
 
 
@@ -120,3 +123,31 @@ func removeShortcut(targetSlot):
 
 func getCommandsList():
 	return shortcutManagerNode.getCommonApps()
+
+
+
+
+func setupNewMenu():
+	if not menuUINode.is_connected("new_menu_selected", setMenuScene):
+		print("\nNew Menu Signal Connected")
+		menuUINode.connect("new_menu_selected", setMenuScene)
+		
+	if not menuUINode.is_connected("screen_number_selected", setScreenNumber):
+		print("\nScreen Number Signal Connected")
+		menuUINode.connect("screen_number_selected", setScreenNumber)
+		
+	if not menuUINode.is_connected("shortcut_remove_selected", removeShortcut):
+		print("\nRemove Shortcut Signal Connected")
+		menuUINode.connect("shortcut_remove_selected", removeShortcut)
+		
+	if not menuUINode.is_connected("shortcut_slot_selected", setTargetSlot):
+		print("\nShortcut Slot Signal Connected")
+		menuUINode.connect("shortcut_slot_selected", setTargetSlot)
+		
+	if not menuUINode.is_connected("shortcut_type_selected", setTargetType):
+		print("\nShortcut Type Signal Connected")
+		menuUINode.connect("shortcut_type_selected", setTargetType)
+		
+	if not menuUINode.is_connected("shortcut_command_selected", setTargetCommand):
+		print("\nShortcut Command Signal Connected")
+		menuUINode.connect("shortcut_command_selected", setTargetCommand)

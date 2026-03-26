@@ -379,6 +379,7 @@ func set_collision_layer(new_layer: int) -> void:
 
 ## Set scene property
 func set_scene(new_scene: PackedScene) -> void:
+	print("New Menu Scene: ", new_scene)
 	scene = new_scene
 	_dirty |= _DIRTY_SCENE
 	if is_ready:

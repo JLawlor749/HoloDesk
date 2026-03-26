@@ -15,19 +15,19 @@ var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <vdd_settings>
   <monitors>
-    <count>2</count>
+    <count>1</count>
   </monitors>
   <gpu>
     <friendlyname>default</friendlyname>
   </gpu>
   <global>
-    <g_refresh_rate>60</g_refresh_rate>
+    <g_refresh_rate>24</g_refresh_rate>
   </global>
   <resolutions>
     <resolution>
       <width>960</width>
       <height>540</height>
-      <refresh_rate>30</refresh_rate>
+      <refresh_rate>24</refresh_rate>
     </resolution>
   </resolutions>
   <options>
@@ -97,6 +97,8 @@ func _ready() -> void:
 		
 		# Add the new screen to the screen list.
 		screenList.append(tempScreen)
+		
+	OS.execute("cmd.exe", ["/c", "start ms-settings:display"], [])
 
 
 
@@ -110,6 +112,7 @@ func _process(delta: float) -> void:
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		print("Closing application ------------------------------------------------")
 		# Disable the digital display driver.
 		driverHelper.disableDevice(hardwareID)
 		

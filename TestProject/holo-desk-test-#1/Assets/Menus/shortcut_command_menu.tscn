@@ -28,7 +28,7 @@ alignment = 1
 [node name="BackButton" type="Button" parent="MarginContainer/HBoxContainer/Back"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "<"
+text = "<<<"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -66,7 +66,7 @@ alignment = 1
 [node name="NextButton" type="Button" parent="MarginContainer/HBoxContainer/Next"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = ">"
+text = ">>>"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Back/BackButton" to="." method="_prev_command_list"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]

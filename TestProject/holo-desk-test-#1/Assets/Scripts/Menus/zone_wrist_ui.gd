@@ -1,7 +1,5 @@
 extends PanelContainer
 
-var menuMasterNode
-
 var commandListNode
 var commandList
 var cmdButtonsList
@@ -11,38 +9,44 @@ var maxPages
 var nextButtonNode
 var prevButtonNode
 
+var fNum
+
+signal new_menu_selected(menu)
+signal screen_number_selected(screenNum)
+signal shortcut_remove_selected(slotNum)
+signal shortcut_slot_selected(slotNum)
+signal shortcut_type_selected(typeNum)
+signal shortcut_command_selected(commandString)
+
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("Setting up new menu...")
-	if menuMasterNode == null:
-		await get_tree().create_timer(5).timeout
 	
-	commandListNode = get_node("MarginContainer/HBoxContainer/VBoxContainer/CommandListContainer")
+	fNum = 0
 	
-	if commandListNode:
-		commandList = menuMasterNode.getCommandsList()
-		
+	if get_node("MarginContainer/HBoxContainer/VBoxContainer/CommandListContainer"):
+		commandListNode = get_node("MarginContainer/HBoxContainer/VBoxContainer/CommandListContainer")
 		nextButtonNode = get_node("MarginContainer/HBoxContainer/Next/NextButton")
 		prevButtonNode = get_node("MarginContainer/HBoxContainer/Back/BackButton")
 		
-		cmdButtonsList = []
-		currentPage = 1
+		nextButtonNode.hide()
+		prevButtonNode.hide()
 		
-		for app in commandList.keys():
-			var button = Button.new()
-			button.text = app
-			
-			var path = commandList[app]
-			button.pressed.connect(_add_shortcut_command.bind(path))
-			
-			cmdButtonsList.append(button)
-			
-			maxPages = ceil(cmdButtonsList.size() / 3.0)
-			
-		updateCommandsDisplay()
-			
+		print("Commands menu.")
 	else:
-		print("CommandList not found.")
+		print("Not commands menu.")
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if commandList and !cmdButtonsList and fNum == 45:
+		setupCommandsMenu()
+	elif commandList and !cmdButtonsList:
+		fNum += 1
+
 
 
 func updateCommandsDisplay():
@@ -65,54 +69,61 @@ func updateCommandsDisplay():
 		prevButtonNode.hide()
 
 
+
+
 func _on_screens_button_pressed() -> void:
-	menuMasterNode.setMenuScene("screens")
+	emit_signal("new_menu_selected", "screens")
 
 
 func _on_shortcut_button_pressed() -> void:
-	menuMasterNode.setMenuScene("shortcut")
+	emit_signal("new_menu_selected", "shortcut")
 
 
 func _on_environment_button_pressed() -> void:
-	menuMasterNode.setMenuScene("environment")
+	emit_signal("new_menu_selected", "environment")
 
 
 func _on_options_button_pressed() -> void:
-	menuMasterNode.setMenuScene("options")
+	emit_signal("new_menu_selected", "options")
 
 
 func _on_back_button_pressed() -> void:
-	menuMasterNode.setMenuScene("main")
+	emit_signal("new_menu_selected", "main")
 
 
 func _on_screen_num_pressed(extra_arg_0: int) -> void:
-	menuMasterNode.setScreenNumber(extra_arg_0)
+	emit_signal("screen_number_selected", extra_arg_0)
 
 
 func _on_add_scut_button_pressed() -> void:
-	menuMasterNode.setMenuScene("add_shortcut")
+	emit_signal("new_menu_selected", "add_shortcut")
 
 
 func _on_delete_scut_button_pressed() -> void:
-	menuMasterNode.setMenuScene("delete_shortcut")
+	emit_signal("new_menu_selected", "delete_shortcut")
 
 
 func _on_add_shortcut_num_pressed(extra_arg_0: int) -> void:
-	menuMasterNode.setTargetSlot(extra_arg_0)
+	print("Shortcut slot selected. | ", extra_arg_0)
+	emit_signal("shortcut_slot_selected", extra_arg_0)
 
 
 func _add_shortcut_type(extra_arg_0: int) -> void:
-	menuMasterNode.setTargetType(extra_arg_0)
+	print("Shortcut type pressed. | ", extra_arg_0)
+	emit_signal("shortcut_type_selected", extra_arg_0)
 
 
 func _add_shortcut_command(extra_arg_0: String) -> void:
-	menuMasterNode.setTargetCommand(extra_arg_0)
-	menuMasterNode.setMenuScene("main")
+	print("Shortcut command selected. | ", extra_arg_0)
+	emit_signal("shortcut_command_selected", extra_arg_0)
+	emit_signal("new_menu_selected", "main")
 
 
 func _on_del_shortcut_num_pressed(extra_arg_0: int) -> void:
-	menuMasterNode.removeShortcut(extra_arg_0)
-	menuMasterNode.setMenuScene("main")
+	emit_signal("shortcut_remove_selected", extra_arg_0)
+	emit_signal("new_menu_selected", "main")
+
+
 
 
 func _next_command_list() -> void:
@@ -125,3 +136,22 @@ func _prev_command_list() -> void:
 	if currentPage > 1:
 		currentPage -= 1
 		updateCommandsDisplay()
+
+
+func setupCommandsMenu():
+
+	cmdButtonsList = []
+	currentPage = 1
+	
+	for app in commandList.keys():
+		var button = Button.new()
+		button.text = app
+		
+		var path = commandList[app]
+		button.pressed.connect(_add_shortcut_command.bind(path))
+		
+		cmdButtonsList.append(button)
+		
+		maxPages = ceil(cmdButtonsList.size() / 3.0)
+		
+	updateCommandsDisplay()

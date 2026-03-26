@@ -5,6 +5,8 @@ var slots ##List variable to store the shortcut slots.
 var buttonScene
 var leverScene = preload("res://Items/Shortcuts/simple_switch_red.tscn")
 
+var shortcutCommandsDictionary
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,6 +17,17 @@ func _ready() -> void:
 		slots.append(tempSlot)
 		
 	print("Slots: ", slots)
+	
+	var commandsFile = FileAccess.open("user://user_commands.txt", FileAccess.READ)
+	if !commandsFile:
+		commandsFile = FileAccess.open("user://user_commands.txt", FileAccess.WRITE)
+	commandsFile.close()
+	commandsFile = null
+	
+	var commonApps = getCommonApps()
+	var userCommands = getCommandsFromFile()
+	commonApps.merge(userCommands)
+	shortcutCommandsDictionary = commonApps
 
 
 
@@ -33,13 +46,19 @@ func addShortcut(targetSlot, targetType, targetCommand):
 		print("Add shortcut: ", targetSlot, "Lever", targetCommand)
 		
 		var newLever = leverScene.instantiate()
-		newLever.leverSlot = get_node("Slot" + str(targetSlot))
+		var leverSlot = get_node("Slot" + str(targetSlot))
+		newLever.slot = leverSlot
+		newLever.commandString = targetCommand
+		
+		leverSlot.add_child(newLever)
 
 
 
 
 func removeShortcut(targetSlot):
-	print("Remove shortcut: ", targetSlot)
+	var deleteSlot = get_node("Slot" + str(targetSlot))
+	var deleteShortcut = deleteSlot.get_child(0)
+	deleteShortcut.queue_free()
 
 
 
@@ -95,10 +114,8 @@ func getCommonApps():
 			"C:\\Program Files\\Notepad++\\notepad++.exe",
 			"C:\\Program Files (x86)\\Notepad++\\notepad++.exe"
 		],
-		"Discord": [
-			"C:\\Users\\%s\\AppData\\Local\\Discord\\Update.exe" % username
-		],
 		"Spotify": [
+			"C:\\Program Files\\WindowsApps\\SpotifyAB.SpotifyMusic_1.285.519.0_x64__zpdnekdrzrea0\\Spotify.exe",
 			"C:\\Users\\%s\\AppData\\Roaming\\Spotify\\Spotify.exe" % username
 		],
 		"Audacity": [
@@ -124,7 +141,7 @@ func getCommonApps():
 	for app_name in apps.keys():
 		for path in apps[app_name]:
 			if FileAccess.file_exists(path):
-				found_apps[app_name] = path
+				found_apps[app_name] = "\"" + path + "\""
 				break
 				
 	return found_apps
@@ -133,4 +150,40 @@ func getCommonApps():
 
 
 func getCommandsFromFile():
-	pass
+	# Open file and get contents as text.
+	var commandsFile = FileAccess.open("user://user_commands.txt", FileAccess.READ)
+	var fileContent = commandsFile.get_as_text()
+	
+	# Set up the dictionary that will contain these commands.
+	var commandsDict = {}
+	
+	#Setup regex to seperate commands from each other.
+	var lineRegex = RegEx.create_from_string("<.*?>")
+	
+	var seperateCommands = lineRegex.search_all(fileContent)
+	
+	var nameRegex = RegEx.create_from_string("name=\\[.*?\\]")
+	var commandRegex = RegEx.create_from_string("command=\\[.*?\\]")
+	
+	for i in seperateCommands:
+		var cmdText = i.get_string()
+		var tempName = nameRegex.search(cmdText)
+		var tempCommand = commandRegex.search(cmdText)
+		
+		var nameClean = RegEx.create_from_string("name=\\[")
+		var commandClean = RegEx.create_from_string("command=\\[")
+		var tailClean = RegEx.create_from_string("\\]")
+		
+		tempName = nameClean.sub(tempName.get_string(), "")
+		tempName = tailClean.sub(tempName, "")
+		
+		tempCommand = commandClean.sub(tempCommand.get_string(), "")
+		tempCommand = tailClean.sub(tempCommand, "")
+		
+		commandsDict[tempName] = tempCommand
+		
+	return commandsDict
+	
+	
+	
+	

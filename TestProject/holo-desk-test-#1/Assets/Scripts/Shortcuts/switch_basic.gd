@@ -8,7 +8,7 @@ var thread: Thread ##The thread that will be used to run the command non-blockin
 var hingePos : float ##The position of the hinge as a floating point number.
 var hingeTriggered : bool ##Whether the hinge is or is not currently triggered.
 
-var leverSlot : Node3D
+var slot : Node3D
 
 
 
@@ -33,19 +33,27 @@ func _process(_delta: float) -> void:
 		
 	elif hingePos != hingeComponentNode.hinge_limit_max:
 		hingeTriggered = false
+		
+	if thread and not thread.is_alive():
+		thread.wait_to_finish()
+		print("Reset shortcut thread...")
+		thread = null
 
 
 
 
 # Called to start the thread that will run the shortcut's command.
 func _run_thread():
-	thread = Thread.new()
-	thread.start(self.triggerCommand)
+	print("Trigger shortcut thread...")
+	if thread == null:
+		thread = Thread.new()
+		thread.start(Callable(self, "triggerCommand"))
 
 
 
 # Called to run the shortcut's command within the thread.
 func triggerCommand():
 	var output = []
-	OS.execute(commandString, [""], output)
+	OS.execute("cmd.exe", ["/c", commandString], output)
+	print("Ran command: ", commandString, "  |  ", output)
 	return "done"
