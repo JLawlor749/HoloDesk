@@ -17,6 +17,7 @@ signal shortcut_remove_selected(slotNum)
 signal shortcut_slot_selected(slotNum)
 signal shortcut_type_selected(typeNum)
 signal shortcut_command_selected(commandString)
+signal environment_selected(environmentNum)
 
 
 
@@ -121,6 +122,11 @@ func _add_shortcut_command(extra_arg_0: String) -> void:
 
 func _on_del_shortcut_num_pressed(extra_arg_0: int) -> void:
 	emit_signal("shortcut_remove_selected", extra_arg_0)
+	emit_signal("new_menu_selected", "main")
+
+
+func _on_environment_selected(extra_arg_0: int) -> void:
+	emit_signal("environment_selected", extra_arg_0)
 	emit_signal("new_menu_selected", "main")
 
 

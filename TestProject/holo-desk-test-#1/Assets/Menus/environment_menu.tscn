@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://do0ihpwq5eiop"]
+
+[ext_resource type="Script" uid="uid://dhg0d1dc00xuj" path="res://Assets/Scripts/Menus/zone_wrist_ui.gd" id="1_pyapf"]
+
+[node name="ZoneWristMenu" type="PanelContainer"]
+offset_right = 400.0
+offset_bottom = 200.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_pyapf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "Select an environment:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Office" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Office"
+
+[node name="Garden" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Garden"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Courtyard" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Courtyard"
+
+[node name="Lab" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lab"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer1/Office" to="." method="_on_environment_selected" binds= [0]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer1/Garden" to="." method="_on_environment_selected" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Courtyard" to="." method="_on_environment_selected" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Lab" to="." method="_on_environment_selected" binds= [3]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/BackButton" to="." method="_on_back_button_pressed"]

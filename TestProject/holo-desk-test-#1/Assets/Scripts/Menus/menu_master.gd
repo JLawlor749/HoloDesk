@@ -5,6 +5,7 @@ var menuUINode : PanelContainer
 
 var screenManagerNode : Node3D
 var shortcutManagerNode : Node3D
+var environmentManagerNode : Node3D
 
 var mainMenu : PackedScene = preload("res://Assets/Menus/zone_wrist_ui.tscn")
 var screenMenu : PackedScene = preload("res://Assets/Menus/screens_menu.tscn")
@@ -34,6 +35,7 @@ func _ready() -> void:
 
 	screenManagerNode = get_node("/root/Root/ScreenManager")
 	shortcutManagerNode = get_node("/root/Root/ShortcutManager")
+	environmentManagerNode = get_node("/root/Root/EnvironmentManager")
 	
 	setMenuScene("main")
 
@@ -127,27 +129,31 @@ func getCommandsList():
 
 
 
+func setEnvironment(environmentNum):
+	environmentManagerNode.startEnvironmentTransition(environmentNum)
+
+
+
+
 func setupNewMenu():
+	
 	if not menuUINode.is_connected("new_menu_selected", setMenuScene):
-		print("\nNew Menu Signal Connected")
 		menuUINode.connect("new_menu_selected", setMenuScene)
 		
 	if not menuUINode.is_connected("screen_number_selected", setScreenNumber):
-		print("\nScreen Number Signal Connected")
 		menuUINode.connect("screen_number_selected", setScreenNumber)
 		
 	if not menuUINode.is_connected("shortcut_remove_selected", removeShortcut):
-		print("\nRemove Shortcut Signal Connected")
 		menuUINode.connect("shortcut_remove_selected", removeShortcut)
 		
 	if not menuUINode.is_connected("shortcut_slot_selected", setTargetSlot):
-		print("\nShortcut Slot Signal Connected")
 		menuUINode.connect("shortcut_slot_selected", setTargetSlot)
 		
 	if not menuUINode.is_connected("shortcut_type_selected", setTargetType):
-		print("\nShortcut Type Signal Connected")
 		menuUINode.connect("shortcut_type_selected", setTargetType)
 		
 	if not menuUINode.is_connected("shortcut_command_selected", setTargetCommand):
-		print("\nShortcut Command Signal Connected")
 		menuUINode.connect("shortcut_command_selected", setTargetCommand)
+		
+	if not menuUINode.is_connected("environment_selected", setEnvironment):
+		menuUINode.connect("environment_selected", setEnvironment)

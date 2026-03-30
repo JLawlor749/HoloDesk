@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c7ni43ng0y06j"]
+
+[ext_resource type="Texture2D" uid="uid://5t2b1gbrhrc7" path="res://Assets/Models/Environments/Garden/plinth_albedo.png" id="1_esjf3"]
+[ext_resource type="Texture2D" uid="uid://ka2i8boos4a2" path="res://Assets/Models/Environments/Garden/plinth_roughness.png" id="3_0ja3a"]
+
+[resource]
+shading_mode = 2
+albedo_texture = ExtResource("1_esjf3")
+roughness_texture = ExtResource("3_0ja3a")

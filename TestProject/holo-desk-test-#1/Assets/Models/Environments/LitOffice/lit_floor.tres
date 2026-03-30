@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bslu7pe365pg0"]
+
+[ext_resource type="Texture2D" uid="uid://md0xq5i3xt3a" path="res://Assets/Models/Environments/LitOffice/office_floor_baked.png" id="1_bpwtk"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_bpwtk")

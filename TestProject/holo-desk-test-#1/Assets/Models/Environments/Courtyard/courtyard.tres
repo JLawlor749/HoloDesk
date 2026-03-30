@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://jcvk40u4k03v"]
+
+[ext_resource type="Texture2D" uid="uid://cjd7hohjkqe0d" path="res://Assets/Models/Environments/Courtyard/courtyard_baked.png" id="1_51vju"]
+
+[resource]
+transparency = 3
+alpha_hash_scale = 0.01
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_51vju")

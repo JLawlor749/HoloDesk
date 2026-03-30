@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bc737675bore1"
-path="res://.godot/imported/office_console.gltf-4715d0ce83e03164523695acc5d5d8ae.scn"
+uid="uid://m0hyib21db00"
+path="res://.godot/imported/FYP_LAB_TO_GLTF.gltf-688418722bfe40646f09b6f98946110e.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Environments/OfficeConsole/office_console.gltf"
-dest_files=["res://.godot/imported/office_console.gltf-4715d0ce83e03164523695acc5d5d8ae.scn"]
+source_file="res://Assets/Models/Environments/Lab/FYP_LAB_TO_GLTF.gltf"
+dest_files=["res://.godot/imported/FYP_LAB_TO_GLTF.gltf-688418722bfe40646f09b6f98946110e.scn"]
 
 [params]
 

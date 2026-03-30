@@ -15,7 +15,7 @@ var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <vdd_settings>
   <monitors>
-    <count>1</count>
+    <count>2</count>
   </monitors>
   <gpu>
     <friendlyname>default</friendlyname>
@@ -47,7 +47,6 @@ var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	# Instantiate a new screen instance to display the user's real screen.
 	print("Instantiating Primary Screen...")
 	screenPrimary = screenScene.instantiate()
@@ -70,8 +69,8 @@ func _ready() -> void:
 	settingsFile = null
 	
 	# Enable the digital display driver.
-	driverHelper.enableDevice(hardwareID)
-	await get_tree().create_timer(5).timeout
+	var driverResult = driverHelper.enableDevice(hardwareID)
+	await get_tree().create_timer(1).timeout
 	
 	# Now we can get the other, simulated screens, if any exist.
 	screenCount = DisplayServer.get_screen_count()
@@ -148,8 +147,8 @@ func updateScreenNumber(targetNum : int):
 	settingsFile = null
 	
 	# Restart the driver to start simulation of new screen, or end simulation of old ones.
-	driverHelper.restartDevice(hardwareID)
-	await get_tree().create_timer(5).timeout
+	var driverResult = driverHelper.restartDevice(hardwareID)
+	await get_tree().create_timer(1).timeout
 	
 	# Calculate the difference in the target number of screens to the current number.
 	print("Target Number = ", targetNum)
@@ -166,10 +165,10 @@ func updateScreenNumber(targetNum : int):
 		print("Deleting screens...")
 		# For each screen to be removed, we traverse from the end of the screen list and remove instances.
 		for i in range(0, abs(screenDiff)):
-			var target = screenList[(len(screenList)-1)-i]
-			print("Screen to be deleted: ", target, " | Index: ", len(screenList)-1-i)
-			screenList.remove_at((len(screenList)-1)-i)
-			target.queue_free()
+			var target = screenCount - i
+			print("Screen index to be deleted: ", target)
+			screenList[target-2].queue_free()
+			screenList.remove_at(target-2)
 		
 	# Otherwise, we need to add screens.
 	else:

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://btj3kn2xl3fb2"]
+
+[ext_resource type="Texture2D" uid="uid://byyrt6gb31js7" path="res://Assets/Models/Environments/Lab/console_baked.png" id="1_qbinw"]
+
+[resource]
+resource_name = "Oak Wood Grain"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_qbinw")

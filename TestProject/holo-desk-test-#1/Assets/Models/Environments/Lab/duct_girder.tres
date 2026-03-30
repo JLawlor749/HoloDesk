@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c6n0v6j12u1e6"]
+
+[ext_resource type="Texture2D" uid="uid://bk6ontm0t0m7g" path="res://Assets/Models/Environments/Lab/ducts girders.png" id="1_exbj1"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_exbj1")

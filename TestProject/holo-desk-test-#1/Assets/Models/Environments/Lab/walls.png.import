@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1bk5faswbq7u"
-path.s3tc="res://.godot/imported/citySky.png-64c21ec6909537f030c4db8fb4bd892e.s3tc.ctex"
+uid="uid://dl2yauq4wbw2e"
+path.s3tc="res://.godot/imported/walls.png-3a9f76380bd04620c27bf3c0178baaa7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Environments/Office/citySky.png"
-dest_files=["res://.godot/imported/citySky.png-64c21ec6909537f030c4db8fb4bd892e.s3tc.ctex"]
+source_file="res://Assets/Models/Environments/Lab/walls.png"
+dest_files=["res://.godot/imported/walls.png-3a9f76380bd04620c27bf3c0178baaa7.s3tc.ctex"]
 
 [params]
 

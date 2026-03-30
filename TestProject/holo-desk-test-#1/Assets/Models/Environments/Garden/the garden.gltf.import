@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bc737675bore1"
-path="res://.godot/imported/office_console.gltf-4715d0ce83e03164523695acc5d5d8ae.scn"
+uid="uid://b1gk6oulunk6f"
+path="res://.godot/imported/the garden.gltf-67a1c7177d97aa5f3143b26892a08371.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Environments/OfficeConsole/office_console.gltf"
-dest_files=["res://.godot/imported/office_console.gltf-4715d0ce83e03164523695acc5d5d8ae.scn"]
+source_file="res://Assets/Models/Environments/Garden/the garden.gltf"
+dest_files=["res://.godot/imported/the garden.gltf-67a1c7177d97aa5f3143b26892a08371.scn"]
 
 [params]
 
