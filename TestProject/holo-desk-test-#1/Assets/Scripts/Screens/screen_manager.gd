@@ -15,7 +15,7 @@ var hardwareID = "ROOT\\MttVDD" ##The hardware ID of the VDD.
 var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <vdd_settings>
   <monitors>
-    <count>2</count>
+    <count>1</count>
   </monitors>
   <gpu>
     <friendlyname>default</friendlyname>
@@ -90,9 +90,10 @@ func _ready() -> void:
 		# Get screen component holding script.
 		var screenMesh = tempScreen.get_node("Screen")
 		
-		# Set the index to its number.
+		# Set the index to its number, and name it.
 		screenMesh.screenIndex = i
-		add_child(tempScreen)
+		tempScreen.name = "VirtualScreen" + str(i)
+		self.add_child(tempScreen)
 		
 		# Add the new screen to the screen list.
 		screenList.append(tempScreen)
@@ -115,6 +116,7 @@ func _notification(what):
 		# Disable the digital display driver.
 		driverHelper.disableDevice(hardwareID)
 		
+		# Resets the file contents to the default screen count of 1.
 		var settingsFile = FileAccess.open("C:/VirtualDisplayDriver/vdd_settings.xml", FileAccess.READ_WRITE)
 		var fileContent = settingsFile.get_as_text()
 		
@@ -184,9 +186,10 @@ func updateScreenNumber(targetNum : int):
 			# Get screen component holding script.
 			var screenMesh = tempScreen.get_node("Screen")
 			
-			# Set the index to its number.
+			# Set the index to its number and names the screen.
 			screenMesh.screenIndex = index
-			add_child(tempScreen)
+			tempScreen.name = "VirtualScreen" + str(index)
+			self.add_child(tempScreen)
 			
 			# Add the new screen to the screen list.
 			screenList.append(tempScreen)

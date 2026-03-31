@@ -59,9 +59,9 @@ func _ready() -> void:
 	
 	if screenIndex > 0:
 		if screenIndex % 2 == 0:
-			grabPoint.position += Vector3(-((screenIndex-1)*1.5), 0, 0.2)
+			grabPoint.position += Vector3(-((screenIndex-1)*1.3), 0, 0.2)
 		else:
-			grabPoint.position += Vector3((screenIndex*1.5), 0, 0.2)
+			grabPoint.position += Vector3((screenIndex*1.3), 0, 0.2)
 	
 	# Assign screen mesh.
 	screenMesh = self.get_node("ScreenMesh")
@@ -95,7 +95,7 @@ func _process(_delta: float) -> void:
 	fCount += 1
 	
 	# Capture the content on the screen, and update the texture with new content.
-	if fCount % int(fIntrvl) == 0:
+	if fCount % int(fIntrvl) == 0 and DisplayServer.get_screen_count() > screenIndex:
 		screenCap = DisplayServer.screen_get_image(screenIndex)
 		if texture:
 			texture.update(screenCap)

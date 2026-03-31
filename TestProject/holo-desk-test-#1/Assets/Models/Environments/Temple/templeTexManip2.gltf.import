@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://rkmfqobjl7by"
-path="res://.godot/imported/courtYardBake1.gltf-461680d6f5048d7b32f567900e66df6f.scn"
+uid="uid://e23uy8klomhe"
+path="res://.godot/imported/templeTexManip2.gltf-29fc8589f4d7476dab9cb7452d8dc4a0.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Environments/Courtyard/courtYardBake1.gltf"
-dest_files=["res://.godot/imported/courtYardBake1.gltf-461680d6f5048d7b32f567900e66df6f.scn"]
+source_file="res://Assets/Models/Environments/Temple/templeTexManip2.gltf"
+dest_files=["res://.godot/imported/templeTexManip2.gltf-29fc8589f4d7476dab9cb7452d8dc4a0.scn"]
 
 [params]
 

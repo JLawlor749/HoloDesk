@@ -32,8 +32,6 @@ func _ready() -> void:
 	transitionBlocker = user.get_node("XRCamera3D/TransitionBlocker")
 	blockerMat = transitionBlocker.get_active_material(0)
 	blockerAlpha = 0
-	
-	startEnvironmentTransition(2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,7 +73,7 @@ func updateEnvironment(envNum):
 		sky_material.panorama = blueSky
 		
 	elif envNum == 2:
-		targetEnvironment = load("res://Environments/Courtyard.tscn")
+		targetEnvironment = load("res://Environments/Temple.tscn")
 		sky_material.panorama = blueSky
 		pass
 		

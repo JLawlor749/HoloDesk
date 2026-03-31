@@ -20,7 +20,7 @@ open_pose = ExtResource("6_3k7s2")
 closed_pose = ExtResource("6_3k7s2")
 
 [sub_resource type="TextMesh" id="TextMesh_b2y48"]
-text = "GRAB"
+text = "GRAB 🤚"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5jfp"]
 albedo_color = Color(0.08646686, 1.353256, 1.3480214, 1)
@@ -64,7 +64,7 @@ visible = true
 hand_pose = SubResource("Resource_07j5o")
 
 [node name="GrabIndicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.3063835, 0.07033193)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.03906382, 0, -0.3063835, 0.07033193)
 mesh = SubResource("TextMesh_b2y48")
 skeleton = NodePath("../Screen")
 surface_material_override/0 = SubResource("StandardMaterial3D_g5jfp")

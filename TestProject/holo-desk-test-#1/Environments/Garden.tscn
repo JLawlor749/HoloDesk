@@ -467,7 +467,7 @@ height = 1.1447754
 radius = 1.4799805
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hu5mn"]
-size = Vector3(4.496826, 13.373474, 75.44563)
+size = Vector3(4.496826, 13.373474, 93.6652)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_12e8d"]
 size = Vector3(15.270233, 16.80481, 1.0009766)
@@ -488,10 +488,10 @@ size = Vector3(19.279297, 16.854004, 1)
 size = Vector3(15.037476, 16.508179, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bv15g"]
-size = Vector3(1, 16.015991, 18.15039)
+size = Vector3(1, 16.015991, 92.85693)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ppq51"]
-size = Vector3(73.58008, 13.59375, 6.125244)
+size = Vector3(79.35852, 13.59375, 6.125244)
 
 [node name="ENVIRONMENT" type="Node3D"]
 
@@ -605,7 +605,7 @@ shape = SubResource("CylinderShape3D_w2yak")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.061556246, -0.53870773, -0.061555695)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
-transform = Transform3D(0.97889596, 0, -0.20435937, 0, 1, 0, 0.20435937, 0, 0.97889596, 38.04021, 6.3731775, -5.5604873)
+transform = Transform3D(0.9117549, 0, -0.41073474, 0, 1, 0, 0.41073474, 0, 0.9117549, 48.718845, 6.3731775, -12.4266405)
 shape = SubResource("BoxShape3D_hu5mn")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
@@ -640,11 +640,11 @@ shape = SubResource("BoxShape3D_mmpi8")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
-transform = Transform3D(0.84147304, 0, -0.5402989, 0, 1, 0, 0.5402989, 0, 0.84147304, -28.106705, 5.8994226, -36.653374)
+transform = Transform3D(0.84147304, 0, -0.5402989, 0, 1, 0, 0.5402989, 0, 0.84147304, -7.924777, 5.8994226, -68.085144)
 shape = SubResource("BoxShape3D_bv15g")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.164425, 6.296875, -44.956562)
+transform = Transform3D(0.63681865, 0, -0.7710136, 0, 1, 0, 0.7710136, 0, 0.63681865, 42.13342, 6.2968755, -77.581924)
 shape = SubResource("BoxShape3D_ppq51")
 debug_color = Color(0.6392157, 0.3882353, 0, 1)

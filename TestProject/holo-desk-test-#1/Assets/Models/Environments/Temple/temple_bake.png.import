@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjd7hohjkqe0d"
-path.s3tc="res://.godot/imported/courtyard_baked.png-fb774b8e3589b6249eba3f4287f86218.s3tc.ctex"
+uid="uid://imp82wkc0jq4"
+path.s3tc="res://.godot/imported/temple_bake.png-e2d6893ecdcc6514de84f9a67461a0ec.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Environments/Courtyard/courtyard_baked.png"
-dest_files=["res://.godot/imported/courtyard_baked.png-fb774b8e3589b6249eba3f4287f86218.s3tc.ctex"]
+source_file="res://Assets/Models/Environments/Temple/temple_bake.png"
+dest_files=["res://.godot/imported/temple_bake.png-e2d6893ecdcc6514de84f9a67461a0ec.s3tc.ctex"]
 
 [params]
 
