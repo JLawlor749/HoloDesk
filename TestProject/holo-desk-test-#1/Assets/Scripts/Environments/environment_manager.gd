@@ -6,7 +6,7 @@ var userBody : XRToolsPlayerBody
 var environmentIndex
 
 var targetEnvironment
-var citySky = preload("res://Assets/Skys/086_hdrmaps_com_free_4K.exr")
+var citySky = preload("res://Assets/Skys/citySky.png")
 var blueSky = preload("res://Assets/Skys/086_hdrmaps_com_free_4K.exr")
 
 var worldNode : Node3D

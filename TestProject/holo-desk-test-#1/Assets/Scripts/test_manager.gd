@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var runTest : bool
 @export var menuViewportNode : XRToolsViewport2DIn3D
 var menuScriptNode
 
@@ -23,17 +24,22 @@ var testSuccess : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	menuScriptNode = menuViewportNode.get_scene_instance()
+	screensDone = false
+	shortcutsDone = false
+	envDone = false
 	
-	testSuccess = true
-	
-	logFile = FileAccess.open("res://test_log.txt", FileAccess.WRITE)
-	
-	fileContent = "------ Starting Test Batch ------ " + Time.get_datetime_string_from_system() + " -------------------------------------\n\n"
-	
-	await get_tree().create_timer(10).timeout
-	
-	testScreens()
+	if runTest:
+		menuScriptNode = menuViewportNode.get_scene_instance()
+		
+		testSuccess = true
+		
+		logFile = FileAccess.open("res://test_log.txt", FileAccess.WRITE)
+		
+		fileContent = "------ Starting Test Batch ------ " + Time.get_datetime_string_from_system() + " -------------------------------------\n\n"
+		
+		await get_tree().create_timer(10).timeout
+		
+		testScreens()
 
 
 
@@ -41,22 +47,22 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	
 	if screensDone and !shortcutsDone:
-		#testShortcuts()
-		pass
+		testShortcuts()
 		
 	if shortcutsDone and !envDone:
 		#testEnvironments()
 		pass
 		
 	if shortcutsDone and envDone and screensDone:
-		pass
+		writeResultsToFile()
 
 
 
 
 
 func testScreens():
-	fileContent = fileContent + "\n--------- Starting Stepped Screens Test -----------------\n"
+	fileContent = fileContent + "\n--------- Starting Screens Test ---------------------------\n"
+	fileContent = fileContent + "\n----- Stepped Test ---------------------\n"
 	
 	# Test each number of screens one by one in order.
 	for i in range(1, 5):
@@ -90,9 +96,10 @@ func testScreens():
 		fileContent = fileContent + "\n\n"
 	
 	
-	fileContent = fileContent + "\n--------- Starting Individual Screen Tests -------------\n"
+	fileContent = fileContent + "\n----- Individual Test ---------------------\n"
 	
 	fileContent = fileContent + "TEST: Going from 1 screen to 4 screens.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	fileContent = fileContent + "Setting to 1 screen..."
 	menuScriptNode._on_screen_num_pressed(1)
 	await get_tree().create_timer(3).timeout
@@ -105,6 +112,7 @@ func testScreens():
 	fileContent = fileContent + "\n\n"
 	
 	fileContent = fileContent + "TEST: Going from 3 screens to 1 screen.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	fileContent = fileContent + "Setting to 3 screens..."
 	menuScriptNode._on_screen_num_pressed(3)
 	await get_tree().create_timer(3).timeout
@@ -117,6 +125,7 @@ func testScreens():
 	fileContent = fileContent + "\n\n"
 	
 	fileContent = fileContent + "TEST: Going from 2 screens to 4 screens.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	fileContent = fileContent + "Setting to 2 screens..."
 	menuScriptNode._on_screen_num_pressed(2)
 	await get_tree().create_timer(3).timeout
@@ -129,6 +138,7 @@ func testScreens():
 	fileContent = fileContent + "\n\n"
 	
 	fileContent = fileContent + "TEST: Going from 4 screens to 1 screen.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 	fileContent = fileContent + "Setting to 4 screens..."
 	menuScriptNode._on_screen_num_pressed(4)
 	await get_tree().create_timer(3).timeout
@@ -139,13 +149,28 @@ func testScreens():
 	detectScreens(1)
 	
 	fileContent = fileContent + "\n\n"
-	writeResultsToFile()
+	fileContent = fileContent + "--------- Finished Screens Test ---------------------------\n\n"
+	
+	screensDone = true
 
 
 
 
 func testShortcuts():
-	pass
+	fileContent = fileContent + "\n--------- Starting Shortcuts Test ---------------------------\n"
+	fileContent = fileContent + "\n----- Stepped Test ---------------------\n"
+	
+	for i in range(1, 5):
+		fileContent = fileContent + "TEST: shortcut slot " + str(i) + ", adding switch.\n"
+		fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+		
+		menuScriptNode._on_add_shortcut_num_pressed(i)
+		menuScriptNode._add_shortcut_type(1)
+		menuScriptNode._add_shortcut_command("wt cmd /k \"ping google.com\"")
+		
+		checkSlot(i, "switch")
+	
+	fileContent = fileContent + "\n--------- Finished Shortcuts Test ---------------------------\n"
 
 
 
@@ -161,13 +186,20 @@ func detectScreens(numTarget):
 		
 		# Try to find each screen as a child of the screen manager.
 		var getScreen = screenManager.get_node("VirtualScreen" + str(i))
+		var scriptNode = getScreen.get_node("Screen")
 		
 		# If the result isn't null, the screen exists, and the test succeeds.
-		if getScreen != null:
-			fileContent = fileContent + "\nVerified existence of VirtualScreen" + str(i) + "."
+		if getScreen != null and scriptNode.screenIndex == i:
+			fileContent = fileContent + "\nVerified VirtualScreen" + str(i) + "."
 		else:
-			fileContent = fileContent + "\nERROR: VirtualScreen" + str(i) + "not detected."
+			fileContent = fileContent + "\nERROR: VirtualScreen" + str(i) + "invalid or not detected."
 			testSuccess = false
+
+
+
+
+func checkSlot(slotNum, expectedShortcut):
+	var checkedSlot = shortcutManager.get_node("Slot" + str(slotNum))
 
 
 

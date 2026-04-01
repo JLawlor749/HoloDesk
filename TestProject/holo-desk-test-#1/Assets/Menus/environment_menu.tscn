@@ -54,7 +54,7 @@ alignment = 1
 [node name="Courtyard" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Courtyard"
+text = "Temple"
 
 [node name="Lab" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2

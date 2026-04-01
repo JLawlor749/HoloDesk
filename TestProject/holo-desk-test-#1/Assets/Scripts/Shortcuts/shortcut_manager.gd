@@ -2,8 +2,8 @@ extends Node3D
 
 var slots ##List variable to store the shortcut slots.
 
-var buttonScene
-var leverScene = preload("res://Items/Shortcuts/simple_switch_red.tscn")
+var leverScene = preload("res://Items/Shortcuts/switch/simple_switch_red.tscn")
+var buttonScene = preload("res://Items/Shortcuts/button/simple_button_red.tscn")
 
 var shortcutCommandsDictionary
 
@@ -40,17 +40,27 @@ func _process(delta: float) -> void:
 
 
 func addShortcut(targetSlot, targetType, targetCommand):
-	if targetType == 0:
-		print("Add shortcut: ", targetSlot, "Button", targetCommand)
-	else:
-		print("Add shortcut: ", targetSlot, "Lever", targetCommand)
-		
-		var newLever = leverScene.instantiate()
-		var leverSlot = get_node("Slot" + str(targetSlot))
-		newLever.slot = leverSlot
-		newLever.commandString = targetCommand
-		
-		leverSlot.add_child(newLever)
+	
+	var insertSlot = get_node("Slot" + str(targetSlot))
+	
+	if insertSlot.get_child_count() == 0:
+		if targetType == 0:
+			print("Add shortcut: ", targetSlot, "Button", targetCommand)
+			
+			var newButton = buttonScene.instantiate()
+			newButton.slot = insertSlot
+			newButton.commandString = targetCommand
+			
+			insertSlot.add_child(newButton)
+			
+		else:
+			print("Add shortcut: ", targetSlot, "Lever", targetCommand)
+			
+			var newLever = leverScene.instantiate()
+			newLever.slot = insertSlot
+			newLever.commandString = targetCommand
+			
+			insertSlot.add_child(newLever)
 
 
 

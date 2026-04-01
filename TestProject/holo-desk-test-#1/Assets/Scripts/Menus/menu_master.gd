@@ -9,7 +9,7 @@ var environmentManagerNode : Node3D
 
 var mainMenu : PackedScene = preload("res://Assets/Menus/zone_wrist_ui.tscn")
 var screenMenu : PackedScene = preload("res://Assets/Menus/screens_menu.tscn")
-var envMenu : PackedScene = preload("res://Assets/Menus/zone_wrist_ui.tscn")
+var envMenu : PackedScene = preload("res://Assets/Menus/environment_menu.tscn")
 var shortMenu : PackedScene = preload("res://Assets/Menus/shortcuts_menu.tscn")
 var optMenu : PackedScene = preload("res://Assets/Menus/zone_wrist_ui.tscn")
 
