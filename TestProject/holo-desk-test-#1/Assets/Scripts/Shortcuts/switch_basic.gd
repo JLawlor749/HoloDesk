@@ -10,6 +10,9 @@ var hingeTriggered : bool ##Whether the hinge is or is not currently triggered.
 
 var slot : Node3D
 
+var handle : XRToolsPickable
+var currentlyGrabbedBy
+
 
 
 
@@ -19,8 +22,28 @@ func _ready() -> void:
 		hingeComponentNode = self.get_node("LeverOrigin/InteractableLever")
 		
 	hingeTriggered = false
+	
+	handle = get_node("LeverOrigin/InteractableLever/HandleOrigin/InteractableHandle")
+	currentlyGrabbedBy = null
+	
+	handle.connect("grabbed", handleGrabbed)
+	handle.connect("released", handleLetGo)
+	
+	
+func vibrateController():
+	var tracker = currentlyGrabbedBy.get_parent().get_tracker()
+	var xr = XRServer.primary_interface
+	if xr and tracker:
+		xr.trigger_haptic_pulse("haptic", tracker, 0, 0.1, 1.0, 1.0)
+		print("VIBRATE CONTROLLER!!!!!")
 
 
+func handleGrabbed(pickable, by):
+	currentlyGrabbedBy = by
+
+
+func handleLetGo(pickable, by):
+	currentlyGrabbedBy = null
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,6 +53,7 @@ func _process(_delta: float) -> void:
 	if hingePos == hingeComponentNode.hinge_limit_max and hingeTriggered == false:
 		call_deferred("_run_thread")
 		hingeTriggered = true
+		vibrateController()
 		
 	elif hingePos != hingeComponentNode.hinge_limit_max:
 		hingeTriggered = false

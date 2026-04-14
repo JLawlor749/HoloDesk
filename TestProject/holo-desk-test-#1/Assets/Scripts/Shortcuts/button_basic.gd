@@ -16,6 +16,8 @@ func _ready() -> void:
 		buttonComponentNode = self.get_node("Base/XRToolsInteractableAreaButton")
 		
 	buttonTriggered = false
+	
+	#print("SHORTCUT BUTTON INITIALIZED: ", commandString)
 
 
 

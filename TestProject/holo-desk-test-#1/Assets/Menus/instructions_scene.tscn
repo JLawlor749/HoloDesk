@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://chkfmfciis81p"]
+
+[ext_resource type="Script" uid="uid://cl7cil7enh5jj" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.gd" id="1_vouv4"]
+[ext_resource type="Script" uid="uid://box8ivf1jm2tq" path="res://Assets/Scripts/Menus/instructions_item.gd" id="1_wcob3"]
+[ext_resource type="PackedScene" uid="uid://dueoujq84ntl" path="res://Assets/Menus/instructions_pane.tscn" id="2_wcob3"]
+[ext_resource type="Script" uid="uid://chrai7njslfg4" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d_body.gd" id="3_fkb7d"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_k4hi5"]
+resource_local_to_scene = true
+size = Vector2(0.2, 0.26)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wcob3"]
+viewport_path = NodePath("Viewport2Din3D/Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcob3"]
+cull_mode = 2
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_wcob3")
+texture_filter = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3aps0"]
+resource_local_to_scene = true
+size = Vector3(0.2, 0.26, 0.02)
+
+[node name="InstructionsPane" type="Node3D"]
+script = ExtResource("1_wcob3")
+
+[node name="Viewport2Din3D" type="Node3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+script = ExtResource("1_vouv4")
+screen_size = Vector2(0.2, 0.26)
+collision_layer = 4194304
+scene = ExtResource("2_wcob3")
+viewport_size = Vector2(2100, 3402)
+update_mode = 2
+throttle_fps = 15.0
+transparent = 0
+alpha_scissor_threshold = 0.25
+unshaded = true
+filter = true
+scene_properties_keys = PackedStringArray("zone_wrist_ui.gd")
+
+[node name="Viewport" type="SubViewport" parent="Viewport2Din3D"]
+disable_3d = true
+gui_embed_subwindows = true
+size = Vector2i(2100, 3402)
+render_target_update_mode = 1
+
+[node name="Screen" type="MeshInstance3D" parent="Viewport2Din3D"]
+mesh = SubResource("QuadMesh_k4hi5")
+surface_material_override/0 = SubResource("StandardMaterial3D_wcob3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Viewport2Din3D"]
+collision_layer = 4194304
+collision_mask = 0
+script = ExtResource("3_fkb7d")
+screen_size = Vector2(0.2, 0.26)
+viewport_size = Vector2(2100, 3402)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Viewport2Din3D/StaticBody3D"]
+transform = Transform3D(0.9999957, -2.0250468e-13, 1.5646219e-07, 2.4868996e-14, 1, 1.37667655e-14, -2.30968e-07, 2.3536728e-14, 0.9999961, -2.9802322e-08, 0, -0.0042675734)
+shape = SubResource("BoxShape3D_3aps0")

@@ -102,9 +102,8 @@ script = ExtResource("6_2nr0s")
 open_pose = ExtResource("8_audcv")
 closed_pose = ExtResource("8_audcv")
 
-[node name="SimpleSwitchRed" type="Node3D" node_paths=PackedStringArray("hingeComponent")]
+[node name="SimpleSwitchRed" type="Node3D"]
 script = ExtResource("1_fs8v3")
-hingeComponent = NodePath("LeverOrigin/InteractableLever")
 
 [node name="Frame" type="StaticBody3D" parent="."]
 

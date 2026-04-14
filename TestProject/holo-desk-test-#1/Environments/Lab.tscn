@@ -481,130 +481,130 @@ data = PackedVector3Array(-4.6147, -7.0846, -6.8592, -2.6508, -7.2037997, -2.910
 
 [node name="ENVIRONMENT" type="Node3D"]
 
-[node name="LabRoom" type="Node3D" parent="."]
+[node name="Lab" type="Node3D" parent="."]
 transform = Transform3D(-2.526548e-07, 0, -2.355, 0, 2.355, 0, 2.355, 0, -2.526548e-07, 0.9690795, 4.83036, -3.0235608)
 
-[node name="MainRoom" type="MeshInstance3D" parent="LabRoom"]
+[node name="MainRoom" type="MeshInstance3D" parent="Lab"]
 mesh = SubResource("ArrayMesh_317ap")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/MainRoom"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/MainRoom"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010131955, -2.1444523, 0.00030514598)
 shape = SubResource("BoxShape3D_7x1w4")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010131955, 1.1074591, 0.00030514598)
 shape = SubResource("BoxShape3D_7x1w4")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005054474, -0.5403265, 2.2445054)
 shape = SubResource("BoxShape3D_jd6nk")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005053878, -0.5403265, -2.246185)
 shape = SubResource("BoxShape3D_jd6nk")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8636298, -0.5196357, 0.008135647)
 shape = SubResource("BoxShape3D_x0fn8")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="LabRoom/MainRoom/StaticBody3D"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Lab/MainRoom/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8632395, -0.5196357, 0.008134782)
 shape = SubResource("BoxShape3D_x0fn8")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="Duct" type="MeshInstance3D" parent="LabRoom"]
+[node name="Duct" type="MeshInstance3D" parent="Lab"]
 mesh = SubResource("ArrayMesh_cef63")
 skeleton = NodePath("")
 
-[node name="Girder1" type="MeshInstance3D" parent="LabRoom"]
+[node name="Girder1" type="MeshInstance3D" parent="Lab"]
 mesh = SubResource("ArrayMesh_yko2c")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/Girder1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/Girder1"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/Girder1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/Girder1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7x1w4")
 
-[node name="HangingLight" type="MeshInstance3D" parent="LabRoom"]
+[node name="HangingLight" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6186681, 0.21096839, -0.52504474)
 mesh = SubResource("ArrayMesh_22hwj")
 skeleton = NodePath("")
 
-[node name="SmallTable" type="MeshInstance3D" parent="LabRoom"]
+[node name="SmallTable" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(0.99997246, 0, -0.007424772, 0, 1, 0, 0.007424772, 0, 0.99997246, -2.3146303, -1.6618556, 1.777055)
 mesh = SubResource("ArrayMesh_73er3")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/SmallTable"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/SmallTable"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/SmallTable/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/SmallTable/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_jd6nk")
 
-[node name="Windows" type="MeshInstance3D" parent="LabRoom"]
+[node name="Windows" type="MeshInstance3D" parent="Lab"]
 mesh = SubResource("ArrayMesh_4qscf")
 skeleton = NodePath("")
 
-[node name="Monitor" type="MeshInstance3D" parent="LabRoom"]
+[node name="Monitor" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3245888, -1.6564558, 1.5286964)
 mesh = SubResource("ArrayMesh_eebqr")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/Monitor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/Monitor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/Monitor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/Monitor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_7x1w4")
 
-[node name="Keyboard" type="MeshInstance3D" parent="LabRoom"]
+[node name="Keyboard" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028971007, 0, -0.05498949)
 mesh = SubResource("ArrayMesh_oq010")
 skeleton = NodePath("")
 
-[node name="Computer" type="MeshInstance3D" parent="LabRoom"]
+[node name="Computer" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(0.9898895, 0, 0.14184088, 0, 1, 0, -0.14184088, 0, 0.9898895, -2.1709056, -1.6272978, 1.9483637)
 mesh = SubResource("ArrayMesh_igjnm")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/Computer"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/Computer"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/Computer/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/Computer/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_x0fn8")
 
-[node name="Whiteboard" type="MeshInstance3D" parent="LabRoom"]
+[node name="Whiteboard" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6448967, -1.0807625, 0.30648345)
 material_override = ExtResource("6_7x1w4")
 mesh = SubResource("ArrayMesh_php0n")
 skeleton = NodePath("")
 
-[node name="Cylinder" type="MeshInstance3D" parent="LabRoom"]
+[node name="Cylinder" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4367871, -1.6534799, 0.7425741)
 mesh = SubResource("ArrayMesh_yfqls")
 skeleton = NodePath("")
 
-[node name="Science Tube_001" type="MeshInstance3D" parent="LabRoom"]
+[node name="Science Tube_001" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.303349, -0.9912104, -1.2490206)
 material_override = ExtResource("7_7x1w4")
 mesh = SubResource("ArrayMesh_kd02x")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/Science Tube_001"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/Science Tube_001"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/Science Tube_001/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/Science Tube_001/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_1rc15")
 
-[node name="Console" type="MeshInstance3D" parent="LabRoom"]
+[node name="Console" type="MeshInstance3D" parent="Lab"]
 transform = Transform3D(-0.07330039, 0, 1.1068051e-08, 0, 0.07330039, 0, -1.1068051e-08, 0, -0.07330039, 0.7112874, -1.5260291, 0.41036466)
 mesh = SubResource("ArrayMesh_koy3e")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LabRoom/Console"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Lab/Console"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LabRoom/Console/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lab/Console/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_rjgmi")

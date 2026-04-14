@@ -483,148 +483,148 @@ size = Vector3(79.35852, 13.59375, 6.125244)
 
 [node name="ENVIRONMENT" type="Node3D"]
 
-[node name="World" type="Node3D" parent="."]
+[node name="Garden" type="Node3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -0.203)
 
-[node name="Console" type="MeshInstance3D" parent="World"]
+[node name="Console" type="MeshInstance3D" parent="Garden"]
 transform = Transform3D(0.172, 0, 0, 0, 0.172, 0, 0, 0, 0.172, 1.15, 1.2287631, 0)
 mesh = SubResource("ArrayMesh_tiayr")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Console"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Garden/Console"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Console/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Console/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_rjgmi")
 
-[node name="Terrain" type="Node3D" parent="World"]
+[node name="Terrain" type="Node3D" parent="Garden"]
 transform = Transform3D(3.498, 0, 0, 0, 3.498, 0, 0, 0, 3.498, -0.30778122, 1.8718252, 0.30777848)
 
-[node name="flowers_4" type="MeshInstance3D" parent="World/Terrain"]
+[node name="flowers_4" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("4_cve2r")
 mesh = SubResource("ArrayMesh_bv15g")
 skeleton = NodePath("")
 
-[node name="rocks" type="MeshInstance3D" parent="World/Terrain"]
+[node name="rocks" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("5_fs52s")
 mesh = SubResource("ArrayMesh_wakdb")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Terrain/rocks"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Garden/Terrain/rocks"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/rocks/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Terrain/rocks/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_hu5mn")
 
-[node name="grass" type="MeshInstance3D" parent="World/Terrain"]
+[node name="grass" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("7_3sjt2")
 mesh = SubResource("ArrayMesh_4xc4w")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Terrain/grass"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Garden/Terrain/grass"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/grass/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Terrain/grass/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ppq51")
 debug_color = Color(0.2, 0, 1, 1)
 
-[node name="dirt" type="MeshInstance3D" parent="World/Terrain"]
+[node name="dirt" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("10_ppq51")
 mesh = SubResource("ArrayMesh_q6861")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Terrain/dirt"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Garden/Terrain/dirt"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/dirt/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Terrain/dirt/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_12e8d")
 
-[node name="flowers_2" type="MeshInstance3D" parent="World/Terrain"]
+[node name="flowers_2" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("10_3sjt2")
 mesh = SubResource("ArrayMesh_bh0yp")
 skeleton = NodePath("")
 
-[node name="ground" type="MeshInstance3D" parent="World/Terrain"]
+[node name="ground" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("11_ppq51")
 mesh = SubResource("ArrayMesh_j8epq")
 skeleton = NodePath("")
 
-[node name="flowers_3" type="MeshInstance3D" parent="World/Terrain"]
+[node name="flowers_3" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("14_jnrps")
 mesh = SubResource("ArrayMesh_lxyyg")
 skeleton = NodePath("")
 
-[node name="flowers_1" type="MeshInstance3D" parent="World/Terrain"]
+[node name="flowers_1" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.0019463884, 0.003020117, 0, 0, 0, -0.0035929845, -0.003020117, -0.0019463884, 0, 0.26209605, -0.6182667, -0.13250588)
 material_override = ExtResource("15_jnrps")
 mesh = SubResource("ArrayMesh_d8n1h")
 skeleton = NodePath("")
 
-[node name="plinth" type="MeshInstance3D" parent="World/Terrain"]
+[node name="plinth" type="MeshInstance3D" parent="Garden/Terrain"]
 transform = Transform3D(-0.3542876, 0, 0.549731, 0, 0.65400594, 0, -0.549731, 0, -0.3542876, 0.24787053, -0.7859895, -0.0485041)
 material_override = ExtResource("15_fs52s")
 mesh = SubResource("ArrayMesh_u8xvr")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Terrain/plinth"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Garden/Terrain/plinth"]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Terrain/plinth/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Garden/Terrain/plinth/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9505535, -0.31056032, 0, 0.3105606, 0.95055366, 0.06630196, -0.13089699, 1.4013557)
 shape = SubResource("BoxShape3D_wakdb")
 debug_color = Color(1, 0, 0, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/plinth/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Terrain/plinth/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, -0.31152338, 0)
 shape = SubResource("CylinderShape3D_4xc4w")
 debug_color = Color(0.9843137, 0, 0, 1)
 
-[node name="Bounding Box" type="StaticBody3D" parent="World/Terrain"]
+[node name="Bounding Box" type="StaticBody3D" parent="Garden/Terrain"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.061556246, -0.53870773, -0.061555695)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.9117549, 0, -0.41073474, 0, 1, 0, 0.41073474, 0, 0.9117549, 48.718845, 6.3731775, -12.4266405)
 shape = SubResource("BoxShape3D_hu5mn")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.7674114, 0, -0.641155, 0, 1, 0, 0.641155, 0, 0.7674114, 23.42732, 4.7599573, 25.05277)
 shape = SubResource("BoxShape3D_12e8d")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.57130104, 0, -0.8207405, 0, 1, 0, 0.8207405, 0, 0.57130104, 11.790097, 5.570138, 24.956158)
 shape = SubResource("BoxShape3D_rfupp")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.66891015, 0, -0.74334323, 0, 1, 0, 0.74334323, 0, 0.66891015, -5.741942, 5.4741297, 15.843104)
 shape = SubResource("BoxShape3D_a2jth")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.37648308, 0, -0.92642343, 0, 1, 0, 0.92642343, 0, 0.37648308, -18.224968, 4.8866053, 0.27782226)
 shape = SubResource("BoxShape3D_c8oy0")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.69598806, 0, -0.7180532, 0, 1, 0, 0.7180532, 0, 0.69598806, -26.125048, 5.528451, -9.392519)
 shape = SubResource("BoxShape3D_junl0")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.06226808, 0, -0.99805933, 0, 1, 0, 0.99805933, 0, 0.06226808, -32.376965, 5.8313684, -22.932152)
 shape = SubResource("BoxShape3D_mmpi8")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.84147304, 0, -0.5402989, 0, 1, 0, 0.5402989, 0, 0.84147304, -7.924777, 5.8994226, -68.085144)
 shape = SubResource("BoxShape3D_bv15g")
 debug_color = Color(0.7019608, 0.3764706, 0, 1)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Terrain/Bounding Box"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Garden/Terrain/Bounding Box"]
 transform = Transform3D(0.63681865, 0, -0.7710136, 0, 1, 0, 0.7710136, 0, 0.63681865, 42.13342, 6.2968755, -77.581924)
 shape = SubResource("BoxShape3D_ppq51")
 debug_color = Color(0.6392157, 0.3882353, 0, 1)

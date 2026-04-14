@@ -7,16 +7,19 @@ var buttonScene = preload("res://Items/Shortcuts/button/simple_button_red.tscn")
 
 var shortcutCommandsDictionary
 
+var allSlotsFull : bool
+var noSlotsFull : bool
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	slots = []
+	allSlotsFull = false
+	noSlotsFull = true
 	
 	for i in range(0, 4):
 		var tempSlot = get_node("Slot" + str(i+1))
 		slots.append(tempSlot)
-		
-	print("Slots: ", slots)
 	
 	var commandsFile = FileAccess.open("user://user_commands.txt", FileAccess.READ)
 	if !commandsFile:
@@ -41,34 +44,60 @@ func _process(delta: float) -> void:
 
 func addShortcut(targetSlot, targetType, targetCommand):
 	
+	print("All attributes set. Attempting to add shortcut...")
+	
 	var insertSlot = get_node("Slot" + str(targetSlot))
 	
 	if insertSlot.get_child_count() == 0:
+		print("Slot empty, attempting to add...")
+		
 		if targetType == 0:
-			print("Add shortcut: ", targetSlot, "Button", targetCommand)
-			
 			var newButton = buttonScene.instantiate()
 			newButton.slot = insertSlot
 			newButton.commandString = targetCommand
 			
 			insertSlot.add_child(newButton)
 			
-		else:
-			print("Add shortcut: ", targetSlot, "Lever", targetCommand)
-			
+		else:	
 			var newLever = leverScene.instantiate()
 			newLever.slot = insertSlot
 			newLever.commandString = targetCommand
 			
 			insertSlot.add_child(newLever)
+		
+	else:
+		print("Slot occupied: ", insertSlot.get_children())
+		
+	# Check if all slots are full or all slots are empty.
+	if slots[0].get_child_count() == 0 or slots[1].get_child_count() == 0 or slots[2].get_child_count() == 0 or slots[3].get_child_count() == 0:
+		allSlotsFull = false
+	else:
+		allSlotsFull = true
+		
+	if slots[0].get_child_count() != 0 or slots[1].get_child_count() != 0 or slots[2].get_child_count() != 0 or slots[3].get_child_count() != 0:
+		noSlotsFull = false
+	else:
+		noSlotsFull = true
 
 
 
 
 func removeShortcut(targetSlot):
 	var deleteSlot = get_node("Slot" + str(targetSlot))
-	var deleteShortcut = deleteSlot.get_child(0)
-	deleteShortcut.queue_free()
+	for child in deleteSlot.get_children():
+		print("Deleting: ", child)
+		child.queue_free()
+		
+	# Check if all slots are full or all slots are empty.
+	if slots[0].get_child_count() == 0 or slots[1].get_child_count() == 0 or slots[2].get_child_count() == 0 or slots[3].get_child_count() == 0:
+		allSlotsFull = false
+	else:
+		allSlotsFull = true
+		
+	if slots[0].get_child_count() != 0 or slots[1].get_child_count() != 0 or slots[2].get_child_count() != 0 or slots[3].get_child_count() != 0:
+		noSlotsFull = false
+	else:
+		noSlotsFull = true
 
 
 

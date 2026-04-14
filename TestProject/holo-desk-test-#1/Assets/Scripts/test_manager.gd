@@ -8,6 +8,13 @@ var menuScriptNode
 @export var shortcutManager : Node3D
 @export var envManager : Node3D
 
+var buttonScript = preload("res://Assets/Scripts/Shortcuts/button_basic.gd")
+var switchScript = preload("res://Assets/Scripts/Shortcuts/switch_basic.gd")
+
+var screensStarted : bool
+var shortcutsStarted : bool
+var envStarted : bool
+
 var screensDone : bool
 var shortcutsDone : bool
 var envDone : bool
@@ -28,6 +35,10 @@ func _ready() -> void:
 	shortcutsDone = false
 	envDone = false
 	
+	screensStarted = false
+	shortcutsStarted = false
+	envStarted = false
+	
 	if runTest:
 		menuScriptNode = menuViewportNode.get_scene_instance()
 		
@@ -46,14 +57,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	
-	if screensDone and !shortcutsDone:
+	if screensDone and !shortcutsStarted:
 		testShortcuts()
 		
-	if shortcutsDone and !envDone:
-		#testEnvironments()
-		pass
+	if shortcutsDone and !envStarted:
+		testEnvironments()
 		
-	if shortcutsDone and envDone and screensDone:
+	if envDone:
 		writeResultsToFile()
 
 
@@ -148,8 +158,7 @@ func testScreens():
 	await get_tree().create_timer(3).timeout
 	detectScreens(1)
 	
-	fileContent = fileContent + "\n\n"
-	fileContent = fileContent + "--------- Finished Screens Test ---------------------------\n\n"
+	fileContent = fileContent + "\n\n--------- Finished Screens Test ---------------------------\n\n\n"
 	
 	screensDone = true
 
@@ -157,27 +166,99 @@ func testScreens():
 
 
 func testShortcuts():
-	fileContent = fileContent + "\n--------- Starting Shortcuts Test ---------------------------\n"
+	shortcutsStarted = true
+	fileContent = fileContent + "\n\n--------- Starting Shortcuts Test ---------------------------\n"
 	fileContent = fileContent + "\n----- Stepped Test ---------------------\n"
 	
+	# Test each shortcut slot with a switch.
+	for i in range(1, 5):
+		fileContent = fileContent + "TEST: shortcut slot " + str(i) + ", adding button.\n"
+		fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		
+		menuScriptNode._on_add_shortcut_num_pressed(i)
+		menuScriptNode._add_shortcut_type(0)
+		menuScriptNode._add_shortcut_command("wt cmd /k \"ping google.com\"")
+		
+		# Have to reaquire the reference to the menu script node after setting command.
+		# This is becuase setting the command tries to reset to the base menu.
+		menuScriptNode = menuViewportNode.get_scene_instance()
+		
+		checkSlot(i, "button", "wt cmd /k \"ping google.com\"")
+		
+		
+	fileContent = fileContent + "\nDeleting all shortcuts...\n"
+	for i in range(1, 5):
+		menuScriptNode._on_del_shortcut_num_pressed(i)
+		menuScriptNode = menuViewportNode.get_scene_instance()
+		
+	await get_tree().process_frame
+		
+	for i in range(1, 5):
+		var checkEmpty = shortcutManager.get_node("Slot" + str(i))
+		if checkEmpty.get_child_count() == 0:
+			fileContent = fileContent + "Successfully deleted from slot " + str(i) + ".\n"
+		else:
+			fileContent = fileContent + "Failed to delete from slot " + str(i) + ".\n"
+	fileContent = fileContent + "\n\n"
+		
+		
+	# Test each shortcut slot with a switch.
 	for i in range(1, 5):
 		fileContent = fileContent + "TEST: shortcut slot " + str(i) + ", adding switch.\n"
-		fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+		fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 		
 		menuScriptNode._on_add_shortcut_num_pressed(i)
 		menuScriptNode._add_shortcut_type(1)
 		menuScriptNode._add_shortcut_command("wt cmd /k \"ping google.com\"")
 		
-		checkSlot(i, "switch")
+		# Have to reaquire the reference to the menu script node after setting command.
+		# This is becuase setting the command tries to reset to the base menu.
+		menuScriptNode = menuViewportNode.get_scene_instance()
+		
+		checkSlot(i, "switch", "wt cmd /k \"ping google.com\"")
+
+	fileContent = fileContent + "--------- Finished Shortcuts Test ---------------------------\n\n\n"
 	
-	fileContent = fileContent + "\n--------- Finished Shortcuts Test ---------------------------\n"
+	shortcutsDone = true
 
 
 
 
 func testEnvironments():
-	pass
-
+	envStarted = true
+	fileContent = fileContent + "\n\n--------- Starting Environments Test ---------------------------\n\n"
+	
+	fileContent = fileContent + "TEST: setting to GARDEN environment.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	menuScriptNode._on_environment_selected(1)
+	await get_tree().create_timer(7).timeout
+	checkEnv(1)
+	menuScriptNode = menuViewportNode.get_scene_instance()
+	
+	fileContent = fileContent + "TEST: setting to TEMPLE environment.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	menuScriptNode._on_environment_selected(2)
+	await get_tree().create_timer(7).timeout
+	checkEnv(2)
+	menuScriptNode = menuViewportNode.get_scene_instance()
+	
+	fileContent = fileContent + "TEST: setting to LAB environment.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	menuScriptNode._on_environment_selected(3)
+	await get_tree().create_timer(7).timeout
+	checkEnv(3)
+	menuScriptNode = menuViewportNode.get_scene_instance()
+	
+	fileContent = fileContent + "TEST: setting to OFFICE environment.\n"
+	fileContent = fileContent + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	menuScriptNode._on_environment_selected(0)
+	await get_tree().create_timer(7).timeout
+	checkEnv(0)
+	menuScriptNode = menuViewportNode.get_scene_instance()
+	
+	fileContent = fileContent + "--------- Finished Environments Test ---------------------------\n\n\n"
+	
+	envDone = true
 
 
 
@@ -198,14 +279,71 @@ func detectScreens(numTarget):
 
 
 
-func checkSlot(slotNum, expectedShortcut):
+func checkSlot(slotNum, expectedShortcut, expectedCommand):
 	var checkedSlot = shortcutManager.get_node("Slot" + str(slotNum))
+	var target = checkedSlot.get_child(0)
+	
+	var typeValid = false
+	var commandValid = false
+	
+	if target != null:
+		if expectedShortcut == "button":
+			if target.get_script() == buttonScript:
+				typeValid = true
+			
+		if expectedShortcut == "switch":
+			if target.get_script() == switchScript:
+				typeValid = true
+				
+		if target.commandString == expectedCommand:
+			commandValid = true
+			
+		if commandValid and typeValid:
+			fileContent = fileContent + "\nShortcut " + expectedShortcut + " in Slot " + str(slotNum) + " verified.\n\n"
+		else:
+			fileContent = fileContent + "\nERROR: Shortcut in Slot " + str(slotNum) + " invalid. " + str(target.get_script().resource_path) + "\n\n"
+			testSuccess = false
+		
+		
+	else:
+		fileContent = fileContent + "\nERROR: Shortcut in Slot " + str(slotNum) + " not detected.\n\n"
+		testSuccess = false
 
+
+
+
+func checkEnv(expectedEnv):
+	var world = get_node("/root/Root/World/")
+	var worldCount = world.get_child_count()
+	var currentEnv = world.get_child(worldCount-1)
+	
+	var checkEnvir = null
+	
+	if expectedEnv == 0:
+		checkEnvir = currentEnv.get_node("Office")
+		
+	elif expectedEnv == 1:
+		checkEnvir = currentEnv.get_node("Garden")
+		
+	elif expectedEnv == 2:
+		checkEnvir = currentEnv.get_node("Temple")
+		
+	else:
+		checkEnvir = currentEnv.get_node("Lab")
+		
+	if expectedEnv == null:
+		fileContent = fileContent + "\nERROR: No environment or incorrect environment detected.\n\n"
+	else:
+		fileContent = fileContent + "\nEnvironment verified.\n\n"
 
 
 
 func writeResultsToFile():
 	print("Writing Results To File.....")
+	
+	screensDone = false
+	shortcutsDone = false
+	envDone = false
 	
 	if testSuccess:
 		fileContent = fileContent + "\nALL TESTS SUCCESSFUL!!!" 

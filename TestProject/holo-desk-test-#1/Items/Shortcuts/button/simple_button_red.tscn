@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://btkpalpdpqljo"]
 
-[ext_resource type="Script" uid="uid://dn0xbnegw04ni" path="res://Items/Shortcuts/button/button_basic.gd" id="1_8t3gh"]
+[ext_resource type="Script" uid="uid://dn0xbnegw04ni" path="res://Assets/Scripts/Shortcuts/button_basic.gd" id="1_8t3gh"]
 [ext_resource type="Material" uid="uid://bnluybfmqutnt" path="res://Assets/Models/Shortcut Elements/button_basic/button_base.tres" id="2_wlp35"]
 [ext_resource type="Script" uid="uid://cyg54yfi8ita8" path="res://addons/godot-xr-tools/interactables/interactable_area_button.gd" id="3_8t3gh"]
 [ext_resource type="Material" uid="uid://di07dorot2pov" path="res://Assets/Models/Shortcut Elements/button_basic/button_face.tres" id="3_aucr2"]

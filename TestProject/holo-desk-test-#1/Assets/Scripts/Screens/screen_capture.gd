@@ -35,8 +35,6 @@ var uv ##Vector2 to store the 2D position of the cursor sprite.
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	print("Beginning Setup Of Screen: ", screenIndex)
-	
 	# Create a new material.
 	material = StandardMaterial3D.new()
 	material.shading_mode = 0
@@ -59,9 +57,9 @@ func _ready() -> void:
 	
 	if screenIndex > 0:
 		if screenIndex % 2 == 0:
-			grabPoint.position += Vector3(-((screenIndex-1)*1.3), 0, 0.2)
+			grabPoint.position += Vector3(-((screenIndex-1)*1.1), 0, 0.2)
 		else:
-			grabPoint.position += Vector3((screenIndex*1.3), 0, 0.2)
+			grabPoint.position += Vector3((screenIndex*1.1), 0, 0.2)
 	
 	# Assign screen mesh.
 	screenMesh = self.get_node("ScreenMesh")
@@ -104,8 +102,9 @@ func _process(_delta: float) -> void:
 			texture = ImageTexture.create_from_image(screenCap)
 		
 	# Capture the global mouse position to update the cursor.
-	globalMouse = DisplayServer.mouse_get_position()
-	screenPos = DisplayServer.screen_get_position(screenIndex)
+	if DisplayServer.get_screen_count() > screenIndex:
+		globalMouse = DisplayServer.mouse_get_position()
+		screenPos = DisplayServer.screen_get_position(screenIndex)
 	
 	# Get the position of the mouse local to this screen.
 	localMouse = globalMouse - screenPos
@@ -135,5 +134,6 @@ func _process(_delta: float) -> void:
 
 
 
-func setNewTexture(newTex):
-	texture.update(newTex)
+func deleteIfNotNeeded():
+	if DisplayServer.get_screen_count() < screenIndex + 1:
+		grabPoint.queue_free()

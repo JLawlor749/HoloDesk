@@ -1,0 +1,203 @@
+[gd_scene load_steps=6 format=3 uid="uid://dueoujq84ntl"]
+
+[ext_resource type="Script" uid="uid://dhg0d1dc00xuj" path="res://Assets/Scripts/Menus/zone_wrist_ui.gd" id="1_wfy15"]
+[ext_resource type="LabelSettings" uid="uid://bpsvxqxxso5g5" path="res://Assets/Menus/inst_style.tres" id="2_fjcqt"]
+[ext_resource type="Texture2D" uid="uid://dmaatdfgn2do5" path="res://Assets/Menus/theControls.png" id="2_mpjwt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mpjwt"]
+font_size = 100
+font_color = Color(0, 0.627451, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fjcqt"]
+font_size = 75
+
+[node name="ZoneWristMenu" type="PanelContainer"]
+offset_right = 2100.0
+offset_bottom = 3402.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_wfy15")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "Instructions & Controls"
+label_settings = SubResource("LabelSettings_mpjwt")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ScreenRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="ScreensTitle" type="Label" parent="MarginContainer/VBoxContainer/ScreenRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "VIRTUAL SCREENS"
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScreensText" type="Label" parent="MarginContainer/VBoxContainer/ScreenRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "To add or delete screens, press the
+button for the screen menu, and select the
+ number of screens you'd like to have."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShortcutRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="ScreensTitle" type="Label" parent="MarginContainer/VBoxContainer/ShortcutRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "INTERACTIVE SHORTCUTS"
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScreensText" type="Label" parent="MarginContainer/VBoxContainer/ShortcutRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "Add a shortcut by selecting a slot, type,
+ and command. Custom shortcuts can
+ be added in the file \"C:/Program Files/
+HoloDesk/commands.txt\"."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnvironmentRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="ScreensTitle" type="Label" parent="MarginContainer/VBoxContainer/EnvironmentRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "ENVIRONMENTS"
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScreensText" type="Label" parent="MarginContainer/VBoxContainer/EnvironmentRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "To switch environments, selected the
+ one you'd like from the environments
+ menu, and it will switch immediately."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControllerTitle" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="ControlsTitle" type="Label" parent="MarginContainer/VBoxContainer/ControllerTitle"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "YOUR CONTROLLERS"
+label_settings = SubResource("LabelSettings_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControllerRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ControllerRow"]
+custom_minimum_size = Vector2(1500, 900)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mpjwt")
+expand_mode = 1
+
+[node name="InstructionRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ControlsTitle" type="Label" parent="MarginContainer/VBoxContainer/InstructionRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "To move around the
+ virtual environment,
+ push the joystick on
+ the left controller. To
+ turn and around,
+move the joystick on the
+ right controller."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlsTitle2" type="Label" parent="MarginContainer/VBoxContainer/InstructionRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "To use teleport locomotion,
+ toggle it ON in the options
+ menu. Then hold the
+ trigger on the left
+ controller. The dotted
+ line shows where you'll
+ land when you release it."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlsTitle3" type="Label" parent="MarginContainer/VBoxContainer/InstructionRow"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "To grab objects like
+ screens or shortcuts,
+ press the grip button
+ on the controller you're
+ using to grab it, while
+ holding that controller
+ near the grab point."
+label_settings = ExtResource("2_fjcqt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CloseInstructionsButton" type="Button" parent="MarginContainer/VBoxContainer/BottomRow"]
+custom_minimum_size = Vector2(450, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 90
+text = "CLOSE"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BottomRow/CloseInstructionsButton" to="." method="_on_close_instructions_button_pressed"]

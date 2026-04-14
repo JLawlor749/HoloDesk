@@ -48,18 +48,18 @@ var defaultDriverXMLSetup = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Instantiate a new screen instance to display the user's real screen.
-	print("Instantiating Primary Screen...")
+	#print("Instantiating Primary Screen...")
 	screenPrimary = screenScene.instantiate()
 	
 	# Assign a new variable to be the component of the screen object that holds the screen script.
 	var screenDataStore = screenPrimary.get_node("Screen")
 	
 	#Assign it an index number of 0, as the first screen.
-	print("Indexing Primary Screen...")
+	#print("Indexing Primary Screen...")
 	screenDataStore.screenIndex = 0
 	
 	# Add it as a child of the screen manager.
-	print("Activating Primary Screen...")
+	#print("Activating Primary Screen...")
 	add_child(screenPrimary)
 	
 	# Open the driver's XML config and set it to our own usable default.
@@ -74,15 +74,15 @@ func _ready() -> void:
 	
 	# Now we can get the other, simulated screens, if any exist.
 	screenCount = DisplayServer.get_screen_count()
-	print(screenCount)
+	#print(screenCount)
 	
 	# After getting the number of existing screens, we define an array to store them.
 	screenList = Array()
 	
 	# We loop through all screens, except for the first one which has already been created.
-	print("Instantiating Virtual Screens...\n")
+	#print("Instantiating Virtual Screens...\n")
 	for i in range(1, screenCount):
-		print("Screen ", i, ": ", DisplayServer.screen_get_size(i))
+		#print("Screen ", i, ": ", DisplayServer.screen_get_size(i))
 		
 		# Instantiate new screen.
 		var tempScreen = screenScene.instantiate()
@@ -125,12 +125,16 @@ func _notification(what):
 		var result = regex.sub(fileContent, str(1), true)
 		
 		settingsFile.store_string(result)
+		
+		settingsFile.close()
+		settingsFile = null
+		
 
 
 
 
 func updateScreenNumber(targetNum : int):
-	print("\n\nUpdating Number of Screens to: ", targetNum, " ------------------------------------")
+	#print("\n\nUpdating Number of Screens to: ", targetNum, " ------------------------------------")
 	screenCount = DisplayServer.get_screen_count()
 	
 	# Open file and get contents as text.
@@ -151,34 +155,53 @@ func updateScreenNumber(targetNum : int):
 	# Restart the driver to start simulation of new screen, or end simulation of old ones.
 	var driverResult = driverHelper.restartDevice(hardwareID)
 	await get_tree().create_timer(1).timeout
+	await get_tree().process_frame
 	
 	# Calculate the difference in the target number of screens to the current number.
-	print("Target Number = ", targetNum)
-	print("Screen Count = ", screenCount)
+	#print("Target Number = ", targetNum)
+	#print("Screen Count = ", screenCount)
 	var screenDiff = targetNum - (screenCount-1)
-	print("Difference between current screens vs target: ", screenDiff)
+	#print("Difference between current screens vs target: ", screenDiff)
 	
 	# If there's no difference, we don't need to do anything.
 	if screenDiff == 0:
 		return
 	
+	
 	# If the difference is negative, we need to remove screens.
 	elif screenDiff < 0:
-		print("Deleting screens...")
+		#print("Deleting screens...")
 		# For each screen to be removed, we traverse from the end of the screen list and remove instances.
+		"""
 		for i in range(0, abs(screenDiff)):
 			var target = screenCount - i
-			print("Screen index to be deleted: ", target)
-			screenList[target-2].queue_free()
-			screenList.remove_at(target-2)
+			#print("Screen index to be deleted: ", target)
+			if target-2 < screenList.size() and target-2 >= 0:
+				screenList[target-2].queue_free()
+				screenList.remove_at(target-2)
+		"""
+		
+		# Call a function on each screen, telling that screen to delete itself if it's index no longer exists.
+		for i in screenList:
+			var screenItem = i.get_node("Screen")
+			screenItem.deleteIfNotNeeded()
+		
+		# Wait a frame for the deletions to take effect.
+		await get_tree().process_frame
+		
+		# Go through the list of screens backwards, removing any invalid references to screens which have just been deleted.
+		for i in range(screenList.size() - 1, -1, -1):
+			if !is_instance_valid(screenList[i]):
+				screenList.remove_at(i)
 		
 	# Otherwise, we need to add screens.
 	else:
 		# For each screen to be added, we create new instances and add them to the screen list.
 		for i in range(0, abs(screenDiff)):
 			# The index for each screen is the index of the previous one, plus 1.
-			var index = (screenList[(len(screenList)-1)].get_node("Screen").screenIndex) + 1
-			print("Updating... Adding Screen ", index, ": ", DisplayServer.screen_get_size(index))
+			var screenTargetIndex = len(screenList)-1
+			var index = (screenList[screenTargetIndex].get_node("Screen").screenIndex) + 1
+			#print("Updating... Adding Screen ", index, ": ", DisplayServer.screen_get_size(index))
 			
 			# Instantiate new screen.
 			var tempScreen = screenScene.instantiate()
@@ -194,4 +217,4 @@ func updateScreenNumber(targetNum : int):
 			# Add the new screen to the screen list.
 			screenList.append(tempScreen)
 	
-	print("Screens Updated ------------------------------------\n\n")
+	#print("Screens Updated ------------------------------------\n\n")
