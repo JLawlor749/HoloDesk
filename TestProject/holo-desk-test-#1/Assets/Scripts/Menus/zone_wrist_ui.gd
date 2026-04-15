@@ -77,12 +77,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# If the menu master has passed the data for the commands list and the list hasn't been set up yet, wait 45 frames and then set it up.
-	if commandList and !cmdButtonsList and fNum == 45:
+	# If the menu master has passed the data for the commands list and the list hasn't been set up yet, wait 15 frames and then set it up.
+	if commandList and !cmdButtonsList and fNum == 15:
 		setupCommandsMenu()
 		
-	# Wait 45 frames to make the add and delete shortcut buttons visible, and disable one if the slots are either full or empty.
-	if !addShortcutSetup and addShortcutButton and fNum == 45:
+	# Wait 15 frames to make the add and delete shortcut buttons visible, and disable one if the slots are either full or empty.
+	if !addShortcutSetup and addShortcutButton and fNum == 15:
 		if slotsFull:
 			delShortcutButton.show()
 		
@@ -93,8 +93,8 @@ func _process(delta: float) -> void:
 			addShortcutButton.show()
 			delShortcutButton.show()
 			
-	# If the menu master has passed the current control method and the toggle hasn't been set up, wait 45 frames then set it up.
-	if !controlToggleButtonSetup and currentControlMethod and controlMethodToggleButton and fNum == 45:
+	# If the menu master has passed the current control method and the toggle hasn't been set up, wait 15 frames then set it up.
+	if !controlToggleButtonSetup and currentControlMethod and controlMethodToggleButton and fNum == 15:
 		if currentControlMethod == 0:
 			controlMethodToggleButton.text = "Teleport Movement"
 			
@@ -104,7 +104,7 @@ func _process(delta: float) -> void:
 		controlToggleButtonSetup = true
 
 	# Increment the frame tracker until it hits 46.
-	if fNum <= 45:
+	if fNum <= 15:
 		fNum += 1
 
 
@@ -220,14 +220,14 @@ func _on_instructions_button_pressed() -> void:
 func _next_command_list() -> void:
 	if currentPage < maxPages:
 		currentPage += 1
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.25).timeout
 		updateCommandsDisplay()
 
 
 func _prev_command_list() -> void:
 	if currentPage > 1:
 		currentPage -= 1
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.25).timeout
 		updateCommandsDisplay()
 
 

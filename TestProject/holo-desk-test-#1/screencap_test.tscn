@@ -331,7 +331,7 @@ size = Vector2(0.16, 0.08)
 [sub_resource type="ViewportTexture" id="ViewportTexture_lsha6"]
 viewport_path = NodePath("XROrigin3D/RightHand/ControlPadLocationRight/ControlPad/Viewport2Din3D/Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0hyf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8ig4"]
 transparency = 1
 cull_mode = 2
 shading_mode = 0
@@ -1248,7 +1248,7 @@ render_target_update_mode = 1
 
 [node name="Screen" type="MeshInstance3D" parent="XROrigin3D/RightHand/ControlPadLocationRight/ControlPad/Viewport2Din3D"]
 mesh = SubResource("QuadMesh_xqvnt")
-surface_material_override/0 = SubResource("StandardMaterial3D_d0hyf")
+surface_material_override/0 = SubResource("StandardMaterial3D_n8ig4")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="XROrigin3D/RightHand/ControlPadLocationRight/ControlPad/Viewport2Din3D"]
 collision_layer = 4194304

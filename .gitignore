@@ -18,6 +18,5 @@ mono_crash.*.json
 # C++ and Other
 .sconsign.dblite
 *.obj
-*.dll
 *.lib
 bin/
